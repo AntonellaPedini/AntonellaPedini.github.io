@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Audiowide: fuente alternativa a Nico Moji (no está disponible en Google Fonts) -->
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=DotGothic16&family=Maven+Pro:wght@400..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Press+Start+2P&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="img/duckade_favicon.png">
+    <title>Duckade - Retro Games</title>
+</head>
+<body>
+
+    <div class="loader" id="loader">
+        <div class="ring-wrap">
+            <svg class="ring" viewBox="0 0 300 300">
+                <circle class="track" cx="150" cy="150" r="130"></circle>
+                <circle id="progress" class="progress" cx="150" cy="150" r="130" stroke-dasharray="816.8"
+                    stroke-dashoffset="816.8" transform="rotate(-90 150 150)"></circle>
+            </svg>
+            <div class="duck-wrap">
+                <img id="duck" class="duck" src="img/Duckling_games.png" alt="Duckade logo">
+            </div>
+        </div>
+        <div class="percent" id="percent">0%</div>
+    </div>
+
+
+    <div class="contenedor-header">
+        <header>
+            <div class="header-izquierda">
+                <div>
+                    <button class="menu-hamburguesa" aria-label="Abrir menú" id="menu-hamburguesa">
+                        &#9776;
+                    </button>
+                    <nav class="menu-desplegable-container">
+                        <ul class="menu-desplegable">
+                            <li><a href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12 6H14V10H16V12H18V18H16V20H14V22H6V20H4V18H2V12H4V10H6V6H10V4H12V6ZM12 16H14V14H12V16ZM10 14H12V12H10V14ZM22 13H20V11H22V13ZM22 10H20V6H22V10ZM20 6H18V4H20V6ZM18 4H12V2H18V4Z" />
+                                    </svg>
+                                    Acción</a>
+                            </li>
+                            <li><a href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M13 22h-2v-4H7v-2h2V4h2v12h2V4h2v12h2v2h-4v4Zm0-18h-2V2h2v2Z" />
+                                    </svg>
+                                    Aventura</a>
+                            </li>
+                            <li><a href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M19 22H5v-2h14v2ZM5 20H3V10h2v10Zm16 0h-2V10h2v10ZM9 8h10v2H5V8h2V4h2v4Zm8-2h-2V4h2v2Zm-2-2H9V2h6v2Z" />
+                                    </svg>
+                                    Beat 'em Up</a>
+                            </li>
+                            <li><a href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M10 15h4v-2h6v2h2v2h-2v2h-6v-2h-4v2H4v-2H2v-2h2v-2h6v2Zm-4 2h2v-2H6v2Zm10 0h2v-2h-2v2ZM2 15H0v-4h2v4Zm22 0h-2v-4h2v4ZM4 11H2V7h2v4Zm14-2h4v2H12V9h4V7h2v2Zm-6 0h-2V7H4V5h12v2h-4v2Z" />
+                                    </svg>
+                                    Carreras</a>
+                            </li>
+                            <li><a href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M6 22H4v-4h2v4Zm16-2h-6v-2h6v2ZM8 18H6v-2h2v2Zm8-2H8v-2h8v2Zm-1-4H9v-2h6v2Zm-6-2H7V4h2v6Zm8 0h-2V4h2v6Zm-2-6H9V2h6v2Z" />
+                                    </svg>
+                                    De peleas</a>
+                            </li>
+                            <li><a href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M15 22H9v-6h6v6Zm-4-2h2v-2h-2v2Zm-2-4H7v-2h2v2Zm8 0h-2v-2h2v2ZM7 14H5V8h2v6Zm12 0h-2V8h2v6ZM3 12H0v-2h3v2Zm21 0h-3v-2h3v2ZM9 8H7V6h2v2Zm8 0h-2V6h2v2ZM5 6H3V4h2v2Zm10 0H9V4h6v2Zm6 0h-2V4h2v2ZM3 4H1V2h2v2Zm20 0h-2V2h2v2ZM13 3h-2V0h2v3Z" />
+                                    </svg>
+                                    Estrategia</a>
+                            </li>
+                            <li><a href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M14 22H12V20H14V22ZM20 22H18V20H20V22ZM5 19H9V21H3V15H5V19ZM18 20H16V18H18V20ZM22 20H20V18H22V20ZM11 19H9V16H11V19ZM20 18H18V16H20V18ZM13 16H11V13H13V16ZM8 15H5V13H8V15ZM11 13H8V11H11V13ZM15 13H13V11H15V13ZM21 13H19V11H21V13ZM4 12H2V10H4V12ZM13 11H11V9H13V11ZM17 11H15V9H17V11ZM15 9H13V7H15V9ZM19 9H17V7H19V9ZM6 8H4V6H6V8ZM17 7H15V5H17V7ZM21 7H19V5H17V3H21V7ZM4 6H2V4H4V6ZM8 6H6V4H8V6ZM13 5H11V3H13V5ZM6 4H4V2H6V4Z" />
+                                    </svg>
+                                    Exploración de mazmorras</a>
+                            </li>
+                            <li><a href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M16 17h-3v2h2v2H9v-2h2v-2H8v-2h8v2Zm2-12h4v6h-2V7h-2v4h2v2h-2v2h-2V5H8v10H6v-2H4v-2h2V7H4v4H2V5h4V3h12v2Z" />
+                                    </svg>
+                                    Deportes</a>
+                            </li>
+                            <li><a href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M9 22H7v-2h2v2Zm4 0h-2v-2h2v2Zm4 0h-2v-2h2v2ZM7 20H5v-4H3v-2h4v6Zm4 0H9v-4h2v4Zm4 0h-2v-4h2v4Zm6-4h-2v4h-2v-6h4v2ZM3 14H1V4h2v10Zm20 0h-2V4h2v10Zm-13-3H8V7h2v4Zm6 0h-2V7h2v4Zm5-7H3V2h18v2Z" />
+                                    </svg>
+                                    Horror</a>
+                            </li>
+                            <li><a href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M2 22H0v-4h2v4Zm14 0h-2v-4h2v4Zm8 0h-2v-4h2v4ZM4 18H2v-2h2v2Zm10 0h-2v-2h2v2Zm8 0h-2v-2h2v2Zm-10-2H4v-2h8v2Zm8 0h-4v-2h4v2Zm-9-4H5v-2h6v2Zm8 0h-4v-2h4v2ZM5 10H3V4h2v6Zm8 0h-2V4h2v6Zm8 0h-2V4h2v6ZM11 4H5V2h6v2Zm8 0h-4V2h4v2Z" />
+                                    </svg>
+                                    Multijugador</a>
+                            </li>
+                            <li><a href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M15 19h-2v4h-2v-4H9v-2h6v2Zm-6-2H7v-2h2v2Zm8 0h-2v-2h2v2ZM7 15H5v-2H1v-2h4V9h2v6Zm6 0h-2v-2h2v2Zm6-4h4v2h-4v2h-2V9h2v2Zm-8 2H9v-2h2v2Zm4 0h-2v-2h2v2Zm-2-2h-2V9h2v2ZM9 9H7V7h2v2Zm8 0h-2V7h2v2Zm-4-4h2v2H9V5h2V1h2v4Z" />
+                                    </svg>
+                                    Juegos de disparos</a>
+                            </li>
+                            <li><a href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M2 3h9v2H2zM0 19h11v2H0zM13 3h9v2h-9zm0 16h11v2H13zM11 5h2v18h-2zM0 5h2v14H0zm22 0h2v14h-2zm-7 2h5v2h-5zm0 4h5v2h-5zm0 4h2v2h-2z" />
+                                    </svg>
+                                    Juegos de cartas</a>
+                            </li>
+                            <li><a href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M4 8h4v4H4v4h4v4h4v-4h4v4h4v2H4v-2H2V4h2v4Zm16-4h2v16h-2v-4h-4v-4h4V8h-4V4h-4v4H8V4H4V2h16v2Zm-8 12H8v-4h4v4Zm4-4h-4V8h4v4Z" />
+                                    </svg>
+                                    Juegos de mesa</a>
+                            </li>
+                            <li><a href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M4 18H2v-2h2v2Zm2-2H4v-2h2v2Zm8 0h-2v-2h2v2Zm-6-2H6v-2h2v2Zm4 0h-2v-2h2v2Zm4 0h-2v-2h2v2Zm6-8v8h-2v-4h-2V8h-4V6h8Zm-12 6H8v-2h2v2Zm8 0h-2v-2h2v2Z" />
+                                    </svg>
+                                    Juegos de plataformas</a>
+                            </li>
+                            <li><a href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M18 22H6V20H18V22ZM6 20H4V18H6V20ZM20 20H18V18H20V20ZM10 16H12V18H10V19H8V10H10V16ZM4 18H2V6H4V18ZM22 18H20V6H22V18ZM14 16H12V14H14V16ZM16 14H14V8H12V6H14V5H16V14ZM13 13H11V11H13V13ZM12 10H10V8H12V10ZM6 6H4V4H6V6ZM20 6H18V4H20V6ZM18 4H6V2H18V4Z" />
+                                    </svg>
+                                    Laberinto</a>
+                            </li>
+                            <li><a href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M13 22h-2v-2H3v-2h2v-2h2v2h10v-2h2v2h2v2h-8v2Zm-4-6H7v-2h2v2Zm8 0h-2v-2h2v2ZM7 14H5v-2h2v2Zm12 0h-2v-2h2v2ZM9 12H7v-2h2v2Zm8 0h-2v-2h2v2Zm-6-2H9V8h2v2Zm4 0h-2V8h2v2ZM9 8H7V6h2v2Zm8 0h-2V6h2v2Zm-6-2H9V4h2v2Zm4 0h-2V4h2v2Zm-2-2h-2V2h2v2Z" />
+                                    </svg>
+                                    Simulación</a>
+                            </li>
+                            <li><a href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M17 9h-2v13h-2v-6h-2v6H9V9H7V7h10v2Zm-6 5h2V9h-2v5ZM7 7H5V5h2v2Zm12 0h-2V5h2v2Zm-5-1h-4V2h4v4ZM5 5H3V3h2v2Zm16 0h-2V3h2v2Z" />
+                                    </svg>
+                                    RPG</a>
+                            </li>
+                            <li><a href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M15 22h-2v-2h-2v-2h2V6h-2V4h2V2h2v20Zm-4-4H9v-2h2v2ZM9 8v2H7v4h2v2H5V8h4Zm10 6h-2v-4h2v4Zm-8-6H9V6h2v2Z" />
+                                    </svg>
+                                    Sigilo</a>
+                            </li>
+                            <li><a href="#">
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M5 19h4v-2h2v2h2v-2h2v2h4v-2h2v2h2v2H1v-2h2v-2h2v2Zm2-2H5v-3h2v3Zm6 0h-2v-2h2v2Zm6 0h-2v-3h2v3ZM9 14H7v-3h2v3Zm8 0h-2v-3h2v3Zm-6-3H9V8h2v3Zm4 0h-2V8h2v3Zm-2-3h-2V5h2v3Zm-2-3H9V3h2v2Zm4 0h-2V3h2v2Z" />
+                                    </svg>
+                                    Supervivencia</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+            
+                <div class="menu-navegacion">
+                    <nav>
+                        <ul>
+                            <li><a href="#">Novedades</a></li>
+                            <li><a href="#">Comunidad</a></li>
+                            <li><a href="#">Tienda</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        
+                <div class="logo">
+                    <h1 class="logo-fuente">Duckade</h1>
+                    <img class="logo-imagen-header" src="img/Duckling_games.png" alt="Duckade Logo">
+                </div>
+        
+                <div class="iconos-usuario-carrito">
+                
+                    <div class="panel-izquierdo">
+                        <button type="button" class="icono-carrito icono-btn" aria-label="Carrito" aria-expanded="false"
+                            aria-controls="menu-carrito">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M9 22H6v-3h3v3Zm11 0h-3v-3h3v3Zm-2-4H8v-2h10v2ZM8 16H6v-4h2v4Zm12 0h-2v-4h2v4ZM6 6h16v6h-2V8H6v4H4V4H2V2h4v4Z" />
+                            </svg>
+                            <span class="badge-carrito">2</span>
+                        </button>
+                
+                
+                        <div class="panel-desplegable" id="menu-carrito">
+                            <p class="panel-titulo">Mi carrito</p>
+                            <ul class="panel-lista">
+                                <li><span>Rayman</span><span>USD $11,50</span></li>
+                                <li><span>Bomberman</span><span>USD $14,99</span></li>
+                            </ul>
+                            <div class="panel-total"><span>Total</span><span>USD $26,49</span></div>
+                            <button type="button" class="btn-pagar">Realizar pago</button>
+                        </div>
+                
+                    </div>
+                
+                    <div class="panel-izquierdo">
+                        <button type="button" class="icono-usuario icono-btn" aria-label="Usuario" aria-expanded="false"
+                            aria-controls="menu-usuario">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                                <path
+                                    d="M6 22H4v-4h2v4Zm14 0h-2v-4h2v4ZM8 18H6v-2h2v2Zm10 0h-2v-2h2v2Zm-2-2H8v-2h8v2Zm-1-4H9v-2h6v2Zm-6-2H7V4h2v6Zm8 0h-2V4h2v6Zm-2-6H9V2h6v2Z" />
+                            </svg>
+                        </button>
+                
+                        <div class="panel-desplegable" id="menu-usuario">
+                            <a href="login.html">Iniciar sesión</a>
+                            <a href="#">Mi biblioteca</a>
+                            <a href="#">Lista de deseados</a>
+                            <a href="#">Configuración</a>
+                        </div>
+                    </div>
+                
+                </div>
+
+
+        </header>
+        <div class="barra-busqueda-container">
+            <input type="text" placeholder="Buscar en la tienda" class="barra-busqueda">
+        </div>
+    </div>
+    
+    
+    <div class="contenedor-home">
+        
+        <h2 class="press-start">
+            PRESS START </br> PARA COMENZAR A JUGAR
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M9 5h2v2H9v10h2v2H9v2H7V3h2v2Zm4 12h-2v-2h2v2Zm2-2h-2v-2h2v2Zm2-2h-2v-2h2v2Zm-2-2h-2V9h2v2Zm-2-2h-2V7h2v2Z" />
+            </svg>
+        </h2>
+
+        <section class="recomendaciones">
+            <h3 class="titulos-categorias">Nuestras recomendaciones para vos</h3>
+    
+            <div class="carrusel-container">
+    
+                <button class="nav-btn-prev" aria-label="Anterior">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M20 11v2H4v-2zM8 13v2H6v-2zm2 2v2H8v-2zm2 2v2h-2v-2zm-4-6V9H6v2z" />
+                        <path d="M10 15V7H8v8zm2 2V5h-2v12z" />
+                    </svg>
+                </button>
+    
+    
+                <div class="carrusel-track" id="carrusel-track-recomendaciones">
+    
+                    <div class="juego-card">
+                        <img src="img/Miniaturas_cards/arcade-game-Street Fighter (US set 1).png"
+                            alt="Street Fighter (US set 1)" class="juego-imagen-gratis">
+                        <div class="juego-info">
+                            <div class="juego-texto">
+                                <p class="juego-nombre">Street Fighter (US set 1)</p>
+                                <p class="juego-precio gratis">GRATIS</p>
+                            </div>
+                            <button class="btn-jugar">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" width="16"
+                                    height="16">
+                                    <path d="M8 5v14l11-7z" />
+                                </svg>
+                                JUGAR
+                            </button>
+                        </div>
+                    </div>
+    
+                    <div class="juego-card">
+                        <img src="img/Miniaturas_cards/playstation-game-Rayman.png" alt="Rayman" class="juego-imagen-pago">
+                        <div class="juego-info">
+                            <div class="juego-texto">
+                                <p class="juego-nombre">Rayman</p>
+                                <p class="juego-precio">USD $11,50</p>
+                            </div>
+                            <button class="btn-agregar">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" width="16"
+                                    height="16">
+                                    <path
+                                        d="M9 22H6v-3h3v3Zm11 0h-3v-3h3v3Zm-2-4H8v-2h10v2ZM8 16H6v-4h2v4Zm12 0h-2v-4h2v4ZM6 6h16v6h-2V8H6v4H4V4H2V2h4v4Z" />
+                                </svg>
+                                AGREGAR
+                            </button>
+                        </div>
+                    </div>
+    
+                    <div class="juego-card">
+                        <img src="img/Miniaturas_cards/nes-game-Super Sonic Bros.png" alt="Super Sonic Bros"
+                            class="juego-imagen-gratis">
+                        <div class="juego-info">
+                            <div class="juego-texto">
+                                <p class="juego-nombre">Super Sonic Bros</p>
+                                <p class="juego-precio gratis">GRATIS</p>
+                            </div>
+                            <button class="btn-jugar">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" width="16"
+                                    height="16">
+                                    <path d="M8 5v14l11-7z" />
+                                </svg>
+                                JUGAR
+                            </button>
+                        </div>
+                    </div>
+    
+                    <div class="juego-card">
+                        <img src="img/Miniaturas_cards/bomberman-hero.png" alt="Bomberman" class="juego-imagen-pago">
+                        <div class="juego-info">
+                            <div class="juego-texto">
+                                <p class="juego-nombre">Bomberman</p>
+                                <p class="juego-precio">USD $14,99</p>
+                            </div>
+                            <button class="btn-agregar">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" width="16"
+                                    height="16">
+                                    <path
+                                        d="M9 22H6v-3h3v3Zm11 0h-3v-3h3v3Zm-2-4H8v-2h10v2ZM8 16H6v-4h2v4Zm12 0h-2v-4h2v4ZM6 6h16v6h-2V8H6v4H4V4H2V2h4v4Z" />
+                                </svg>
+                                AGREGAR
+                            </button>
+                        </div>
+                    </div>
+    
+                    <div class="juego-card">
+                        <img src="img/Miniaturas_cards/pokemon-mystery-dungeon-explorers-of-sky.png" alt="Pokémon Mystery Dungeon: Explorers of Sky"
+                            class="juego-imagen-pago">
+                        <div class="juego-info">
+                            <div class="juego-texto">
+                                <p class="juego-nombre">Pokémon Mystery Dungeon: Explorers of Sky</p>
+                                <p class="juego-precio">USD $3,99</p>
+                            </div>
+                            <button class="btn-agregar">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" width="16"
+                                    height="16">
+                                    <path
+                                        d="M9 22H6v-3h3v3Zm11 0h-3v-3h3v3Zm-2-4H8v-2h10v2ZM8 16H6v-4h2v4Zm12 0h-2v-4h2v4ZM6 6h16v6h-2V8H6v4H4V4H2V2h4v4Z" />
+                                </svg>
+                                AGREGAR
+                            </button>
+                        </div>
+                    </div>
+                </div> 
+    
+                <button class="nav-btn-next" aria-label="Siguiente">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M4 11v2h16v-2zm12 2v2h2v-2zm-2 2v2h2v-2zm-2 2v2h2v-2zm4-6V9h2v2z" />
+                        <path d="M14 15V7h2v8zm-2 2V5h2v12z" />
+                    </svg>
+                </button>
+        </section>
+    
+        <section class="gratuitos">
+            <h3 class="titulos-categorias">Gratuitos destacados de la semana</h3>
+    
+            <div class="carrusel-container">
+    
+                <button class="nav-btn-prev" aria-label="Anterior">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M20 11v2H4v-2zM8 13v2H6v-2zm2 2v2H8v-2zm2 2v2h-2v-2zm-4-6V9H6v2z" />
+                        <path d="M10 15V7H8v8zm2 2V5h-2v12z" />
+                    </svg>
+                </button>
+    
+    
+                <div class="carrusel-track" id="carrusel-track-gratuitos">
+                
+                    <div class="juego-card">
+                        <img src="img/Miniaturas_cards/peg_ocean_miniatura.png" alt="Peg solitaire" class="juego-imagen-gratis">
+                        <div class="juego-info">
+                            <div class="juego-texto">
+                                <p class="juego-nombre">Peg Solitaire - Ocean Edition</p>
+                                <p class="juego-precio gratis">GRATIS</p>
+                            </div>
+                            <a href="peg-solitaire.html" class="btn-jugar">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" width="16" height="16">
+                                    <path d="M8 5v14l11-7z" />
+                                </svg>
+                                JUGAR
+                            </a>
+                        </div>
+                    </div>
+    
+                    <div class="juego-card">
+                        <img src="img/Miniaturas_cards/yugioh-forbidden-memories.png" alt="Yu-Gi-Oh! Forbidden Memories" class="juego-imagen-gratis">
+                        <div class="juego-info">
+                            <div class="juego-texto">
+                                <p class="juego-nombre">Yu-Gi-Oh! Forbidden Memories</p>
+                                <p class="juego-precio gratis">GRATIS</p>
+                            </div>
+                            <button class="btn-jugar">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" width="16"
+                                    height="16">
+                                    <path d="M8 5v14l11-7z" />
+                                </svg>
+                                JUGAR
+                            </button>
+                        </div>
+                    </div>
+    
+                    <div class="juego-card">
+                        <img src="img/Miniaturas_cards/monopoly.png" alt="Monopoly" class="juego-imagen-gratis">
+                        <div class="juego-info">
+                            <div class="juego-texto">
+                                <p class="juego-nombre">Monopoly</p>
+                                <p class="juego-precio gratis">GRATIS</p>
+                            </div>
+                            <button class="btn-jugar">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" width="16"
+                                    height="16">
+                                    <path d="M8 5v14l11-7z" />
+                                </svg>
+                                JUGAR
+                            </button>
+                        </div>
+                    </div>
+    
+                    <div class="juego-card">
+                        <img src="img/Miniaturas_cards/castlevania.png" alt="Castlevania" class="juego-imagen-gratis">
+                        <div class="juego-info">
+                            <div class="juego-texto">
+                                <p class="juego-nombre">Castlevania</p>
+                                <p class="juego-precio gratis">GRATIS</p>
+                            </div>
+                            <button class="btn-jugar">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" width="16"
+                                    height="16">
+                                    <path d="M8 5v14l11-7z" />
+                                </svg>
+                                JUGAR
+                            </button>
+                        </div>
+                    </div>
+    
+                    <div class="juego-card">
+                        <img src="img/Miniaturas_cards/the-legend-of-zelda-ocarina-of-time.png" alt="The Legend of Zelda: Ocarina of Time" class="juego-imagen-gratis">
+                        <div class="juego-info">
+                            <div class="juego-texto">
+                                <p class="juego-nombre">The Legend of Zelda: Ocarina of Time</p>
+                                <p class="juego-precio gratis">GRATIS</p>
+                            </div>
+                           <button class="btn-jugar">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" width="16"
+                                    height="16">
+                                    <path d="M8 5v14l11-7z" />
+                                </svg>
+                                JUGAR
+                            </button>
+                        </div>
+                    </div>
+                </div>
+    
+                <button class="nav-btn-next" aria-label="Siguiente">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M4 11v2h16v-2zm12 2v2h2v-2zm-2 2v2h2v-2zm-2 2v2h2v-2zm4-6V9h2v2z" />
+                        <path d="M14 15V7h2v8zm-2 2V5h2v12z" />
+                    </svg>
+                </button>
+        </section>
+        
+        
+        <section class="carrusel-esp-container">
+            <div class="carousel">
+                <div>
+                    <div class="carousel__track" id="track"></div>
+                </div>
+        
+                <button type="button" class="carousel__arrow carousel__arrow--prev" id="btn-prev" aria-label="Imagen anterior">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M15 18l-6-6 6-6" />
+                    </svg>
+                </button>
+        
+                <button type="button" class="carousel__arrow carousel__arrow--next" id="btn-next" aria-label="Imagen siguiente">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+                        stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M9 6l6 6-6 6" />
+                    </svg>
+                </button>
+            </div>
+        
+            <div class="carousel__dots" id="dots"></div>
+        </section>
+
+        <div class="info-card-destacada">
+        
+            <h2 class="titulo-card-destacada">El favorito <br> de este <br> mes</h2>
+        
+            <div class="container-nombre-juego-destacado">
+        
+                <h3 class="nombre-juego-destacado">Aladdin (USA)</h3>
+        
+                <div class="precio-descuento">
+                    <span class="badge-descuento">-50%</span>
+                    <div class="precios">
+                        <s class="precio-anterior">USD $14,99</s>
+                        <span class="precio-actual">USD $7,99</span>
+                    </div>
+                </div>
+        
+            </div>
+        </div>
+
+        <section class="aventuras">
+            <h3 class="titulos-categorias">Aventura</h3>
+    
+            <div class="carrusel-container">
+    
+                <button class="nav-btn-prev" aria-label="Anterior">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M20 11v2H4v-2zM8 13v2H6v-2zm2 2v2H8v-2zm2 2v2h-2v-2zm-4-6V9H6v2z" />
+                        <path d="M10 15V7H8v8zm2 2V5h-2v12z" />
+                    </svg>
+                </button>
+    
+    
+                <div class="carrusel-track" id="carrusel-track-aventuras">
+    
+                    <div class="juego-card">
+                        <img src="img/Miniaturas_cards/gameboy-color-game-Speedy Gonzales - Aztec Adventure (USA).png"
+                            alt="Alisia Dragoon" class="juego-imagen-gratis">
+                        <div class="juego-info">
+                            <div class="juego-texto">
+                                <p class="juego-nombre">Alisia Dragoon</p>
+                                <p class="juego-precio gratis">GRATIS</p>
+                            </div>
+                            <button class="btn-jugar">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" width="16"
+                                    height="16">
+                                    <path d="M8 5v14l11-7z" />
+                                </svg>
+                                JUGAR
+                            </button>
+                        </div>
+                    </div>
+    
+                    <div class="juego-card">
+                        <img src="img/Miniaturas_cards/nes-game-Super Mario Bros.png" alt="Super Mario Bros"
+                            class="juego-imagen-pago">
+                        <div class="juego-info">
+                            <div class="juego-texto">
+                                <p class="juego-nombre">Super Mario Bros</p>
+                                <p class="juego-precio">USD $5,99</p>
+                            </div>
+                            <button class="btn-agregar">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" width="16"
+                                    height="16">
+                                    <path
+                                        d="M9 22H6v-3h3v3Zm11 0h-3v-3h3v3Zm-2-4H8v-2h10v2ZM8 16H6v-4h2v4Zm12 0h-2v-4h2v4ZM6 6h16v6h-2V8H6v4H4V4H2V2h4v4Z" />
+                                </svg>
+                                AGREGAR
+                            </button>
+                        </div>
+                    </div> 
+    
+                    <div class="juego-card">
+                        <img src="img/Miniaturas_cards/genesis-game-Alisia Dragoon (USA).png" alt="Alisia Dragoon" class="juego-imagen-gratis">
+                        <div class="juego-info">
+                            <div class="juego-texto">
+                                <p class="juego-nombre">Alisia Dragoon</p>
+                                <p class="juego-precio gratis">GRATIS</p>
+                            </div>
+                            <button class="btn-jugar">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" width="16"
+                                    height="16">
+                                    <path d="M8 5v14l11-7z" />
+                                </svg>
+                                JUGAR
+                            </button>
+                        </div>
+                    </div>
+    
+                    <div class="juego-card">
+                        <img src="img/Miniaturas_cards/nes-game-Bonk's Adventure (USA).png" alt="Bonk's Adventure"
+                            class="juego-imagen-pago">
+                        <div class="juego-info">
+                            <div class="juego-texto">
+                                <p class="juego-nombre">Bonk's Adventure</p>
+                                <p class="juego-precio">USD $4,99</p>
+                            </div>
+                            <button class="btn-agregar">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" width="16"
+                                    height="16">
+                                    <path
+                                        d="M9 22H6v-3h3v3Zm11 0h-3v-3h3v3Zm-2-4H8v-2h10v2ZM8 16H6v-4h2v4Zm12 0h-2v-4h2v4ZM6 6h16v6h-2V8H6v4H4V4H2V2h4v4Z" />
+                                </svg>
+                                AGREGAR
+                            </button>
+                        </div>
+                    </div>
+    
+                    <div class="juego-card">
+                        <img src="img/Miniaturas_cards/crash-bandicoot.png" alt="Crash Bandicoot"
+                            class="juego-imagen-pago">
+                        <div class="juego-info">
+                            <div class="juego-texto">
+                                <p class="juego-nombre">Crash Bandicoot</p>
+                                <p class="juego-precio">USD $14,99</p>
+                            </div>
+                            <button class="btn-agregar">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" width="16"
+                                    height="16">
+                                    <path
+                                        d="M9 22H6v-3h3v3Zm11 0h-3v-3h3v3Zm-2-4H8v-2h10v2ZM8 16H6v-4h2v4Zm12 0h-2v-4h2v4ZM6 6h16v6h-2V8H6v4H4V4H2V2h4v4Z" />
+                                </svg>
+                                AGREGAR
+                            </button>
+                        </div>
+                    </div>
+                </div>
+    
+                <button class="nav-btn-next" aria-label="Siguiente">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M4 11v2h16v-2zm12 2v2h2v-2zm-2 2v2h2v-2zm-2 2v2h2v-2zm4-6V9h2v2z" />
+                        <path d="M14 15V7h2v8zm-2 2V5h2v12z" />
+                    </svg>
+                </button>
+        </section>
+
+
+    
+
+        <section class="categorias-wrapper">
+        
+            <section class="categoria-bloque">
+                <h3 class="titulos-categorias">De peleas</h3>
+                <div class="categoria-grid">
+        
+                    <div class="juego-card">
+                        <img src="img/Miniaturas_cards/arcade-game-JoJo's Bizarre Adventure Heritage for the Future.png" alt="JoJo's Bizarre Adventure" class="juego-imagen-gratis">
+                        <div class="juego-info">
+                            <div class="juego-texto">
+                                <p class="juego-nombre">JoJo's Bizarre Adventure</p>
+                                <p class="juego-precio gratis">GRATIS</p>
+                            </div>
+                            <button class="btn-jugar">JUGAR</button>
+                        </div>
+                    </div>
+        
+                    <div class="juego-card">
+                        <img src="img/Miniaturas_cards/darkstalkers-the-night-warriors.jpg" alt="Darkstalkers: The Night Warriors" class="juego-imagen-pago">
+                        <div class="juego-info">
+                            <div class="juego-texto">
+                                <p class="juego-nombre">Darkstalkers: The Night Warriors</p>
+                                <p class="juego-precio">USD $4,99</p>
+                            </div>
+                            <button class="btn-agregar">AGREGAR</button>
+                        </div>
+                    </div>
+
+                    <div class="juego-card">
+                        <img src="img/Miniaturas_cards/turbografx-cd-game-Fighting Street.png" alt="Fighting Street" class="juego-imagen-pago">
+                        <div class="juego-info">
+                            <div class="juego-texto">
+                                <p class="juego-nombre">Fighting Street</p>
+                                <p class="juego-precio">USD $6,99</p>
+                            </div>
+                            <button class="btn-agregar">AGREGAR</button>
+                        </div>
+                    </div>
+
+                    <div class="juego-card">
+                        <img src="img/Miniaturas_cards/teenage-mutant-ninja-turtles-tournament-fighters.png" alt="Teenage Mutant Ninja Turtles: Tournament Fighters" class="juego-imagen-gratis">
+                        <div class="juego-info">
+                            <div class="juego-texto">
+                                <p class="juego-nombre">Teenage Mutant Ninja Turtles: Tournament Fighters</p>
+                                <p class="juego-precio gratis">GRATIS</p>
+                            </div>
+                            <button class="btn-jugar">JUGAR</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        
+            <section class="categoria-bloque">
+                <h3 class="titulos-categorias">Acción</h3>
+                <div class="categoria-grid">
+        
+                    <div class="juego-card">
+                        <img src="img/Miniaturas_cards/final-fight.jpg" alt="Final Fight" class="juego-imagen-gratis">
+                        <div class="juego-info">
+                            <div class="juego-texto">
+                                <p class="juego-nombre">Final Fight</p>
+                                <p class="juego-precio gratis">GRATIS</p>
+                            </div>
+                            <button class="btn-jugar">JUGAR</button>
+                        </div>
+                    </div>
+
+                    <div class="juego-card">
+                        <img src="img/Miniaturas_cards/sonic-the-hedgehog-pocket-adventure.jpg" alt="Sonic the Hedgehog Pocket Adventure" class="juego-imagen-pago">
+                        <div class="juego-info">
+                            <div class="juego-texto">
+                                <p class="juego-nombre">Sonic the Hedgehog Pocket Adventure</p>
+                                <p class="juego-precio">USD $4,99</p>
+                            </div>
+                            <button class="btn-agregar">AGREGAR</button>
+                        </div>
+                    </div>
+
+                    <div class="juego-card">
+                        <img src="img/Miniaturas_cards/altered-beast.jpg" alt="Altered Beast" class="juego-imagen-pago">
+                        <div class="juego-info">
+                            <div class="juego-texto">
+                                <p class="juego-nombre">Altered Beast</p>
+                                <p class="juego-precio">USD $6,99</p>
+                            </div>
+                            <button class="btn-agregar">AGREGAR</button>
+                        </div>
+                    </div>
+        
+                   <div class="juego-card">
+                        <img src="img/Miniaturas_cards/donkey-kong.jpg" alt="Donkey Kong" class="juego-imagen-pago">
+                        <div class="juego-info">
+                            <div class="juego-texto">
+                                <p class="juego-nombre">Donkey Kong</p>
+                                <p class="juego-precio">USD $4,99</p>
+                            </div>
+                            <button class="btn-agregar">AGREGAR</button>
+                        </div>
+                    </div>
+        
+                </div>
+            </section>
+
+        </section> <!--Cierre categorias-wrapper-->
+
+    </div>
+    
+
+    <footer>
+        <div class="footer-superior">
+
+            <div class="logo-nombre-redes">
+                <img class="logo-imagen-footer" src="img/Duckling_games.png" alt="Duckade Logo">
+                <h3 class="logo-footer-fuente">Duckade</h3>
+            
+                <div class="iconos-redes-sociales">
+                    <div class="icono-facebook">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M17 6h-4v4h4v4h-4v8H9v-8H6v-4h3V4h2V2h6v4Z" />
+                        </svg>
+                    </div>
+            
+                    <div class="icono-youtube">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M20 6h2v12h-2v2H4v-2H2V6h2V4h16v2ZM8 17h4v-2h3v-2h2v-2h-2V9h-3V7H8v10Z" />
+                        </svg>
+                    </div>
+            
+                    <div class="icono-x">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M6 20H4v-2h2v2ZM8 6h2v2h2v2h2v2h2v2h2v2h2v2h2v2h-6v-2h-2v-2h-2v-2h-2v-2H8v-2H6V8H4V6H2V4h6v2Zm0 12H6v-2h2v2Zm2-2H8v-2h2v2Zm6-6h-2V8h2v2Zm2-2h-2V6h2v2Zm2-2h-2V4h2v2Z" />
+                        </svg>
+                    </div>
+            
+                    <div class="icono-instagram">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M16 6v2h2V6h-2Zm-6 10h4v-2h-4v2Zm-2-2h2v-4H8v4Zm6 0h2v-4h-2v4Zm-4-4h4V8h-4v2Zm12-4v12h-2v2h-2v2H6v-2H4v-2H2V6h2V4h2V2h12v2h2v2h2Z" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="links-fat-footer">
+                <div class="footer-columna">
+                    <h4>DUCKADE</h4>
+                    <ul>
+                        <li><a href="">Acerca de Duckade</a></li>
+                        <li><a href="">Acuerdo de subscriptor a Duckade</a></li>
+                        <li><a href="">Trabajá con nosotros</a></li>
+                        <li><a href="">Términos y condiciones</a></li>
+                    </ul>
+                </div>
+            
+                <div class="footer-columna">
+                    <h4>SOPORTE</h4>
+                    <ul>
+                        <li><a href="">Centro de ayuda</a></li>
+                        <li><a href="">Preguntas frecuentes</a></li>
+                        <li><a href="">Contacto</a></li>
+                        <li><a href="">Condiciones de uso</a></li>
+                        <li><a href="">Reembolsos y devoluciones</a></li>
+                    </ul>
+                </div>
+            
+                <div class="footer-columna">
+                    <h4>INFORMACIÓN LEGAL</h4>
+                    <ul>
+                        <li><a href="">Política de privacidad</a></li>
+                        <li><a href="">Accesibilidad</a></li>
+                        <li><a href="">Avisos y políticas</a></li>
+                        <li><a href="">Cookies y anuncios basados en intereses</a></li>
+                    </ul>
+                </div>
+            
+                <div class="footer-columna">
+                    <h4>TIENDA</h4>
+                    <ul>
+                        <li><a href="">Novedades</a></li>
+                        <li><a href="">Ofertas/Descuentos</a></li>
+                        <li><a href="">Próximos lanzamientos</a></li>
+                        <li><a href="">Juegos gratis</a></li>
+                        <li><a href="">Tarjetas de regalo</a></li>
+                    </ul>
+                </div>
+            
+                <div class="footer-columna">
+                    <h4>COMUNIDAD</h4>
+                    <ul>
+                        <li><a href="">Directrices de la comunidad</a></li>
+                        <li><a href="">Foro</a></li>
+                        <li><a href="">Reseñas de usuarios</a></li>
+                        <li><a href="">Discord/Redes sociales</a></li>
+                        <li><a href="">Novedades del sitio</a></li>
+                        <li><a href="">Eventos</a></li>
+                    </ul>
+                </div>
+            
+                <div class="footer-columna">
+                    <h4>MI CUENTA</h4>
+                    <ul>
+                        <li><a href="">Iniciar sesión</a></li>
+                        <li><a href="">Mi biblioteca</a></li>
+                        <li><a href="">Mi actividad</a></li>
+                        <li><a href="">Lista de deseados</a></li>
+                        <li><a href="">Historial de compra</a></li>
+                        <li><a href="">Configuración</a></li>
+                    </ul>
+                </div>
+            
+            </div>
+
+            <div class="footer-newsletter">
+                <div class="newsletter-icono">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                        <path
+                            d="M20 20H4v-2h16v2ZM4 18H2V6h2v12Zm18 0h-2V6h2v12Zm-8-4h-4v-2h4v2Zm-4-2H8v-2h2v2Zm6 0h-2v-2h2v2Zm-8-2H6V8h2v2Zm10 0h-2V8h2v2Zm2-4H4V4h16v2Z" />
+                    </svg>
+                </div>
+            
+                <div>
+                    <h3 id="newsletter-fuente">Newsletter</h3>
+                    <h4 class="newsletter-contenido-fuente">¡Subscribite para ser el primero en enterarte de las últimas novedades!</h4>
+                    <h5 class="newsletter-email-fuente">Dirección de email</h5>
+                    <input type="email" placeholder="tunombre@gmail.com">
+            
+                    <button>SUBSCRIBIR</button>
+                </div>
+            
+            </div>
+
+        </div>
+        <div class="footer-inferior">
+            <p>Duckade. Los juegos son propiedad de sus respectivos dueños.</p>
+        </div>
+        
+    </footer>
+    <script src="js/carrusel-destacado.js"></script>
+    <script src="js/loader.js"></script>
+    <script src="js/forms-intercambio.js"></script>
+    <script src="js/menu-toggle.js"></script>
+    <script src="js/carruseles.js"></script>
+    <script src="js/desplegables-user-cart.js"></script>
+    <script src="js/footer-desplegables.js"></script>
+</body>
+</html>

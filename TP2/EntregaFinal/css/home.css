@@ -1,0 +1,1436 @@
+/*--------------------------------------- DISEÑO RESPONSIVE - MOBILE FIRST --------------------------------------*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    /*Bloque de variables css*/
+    /*Del loader*/
+    --track: #1c1c24;
+    --neon: #fff200;
+    --neon-soft: #ffe600;
+
+    /*De la página*/
+    --color-primario: #FFE3BB;
+    --color-secundario: #03A6A1;
+    --color-acento: #FF4F0F;
+
+    --luz-primaria-1: #FBF3EA;
+    --luz-primaria-2:#F7E8D4; /*No se usa*/
+    --luz-primaria-3:#FFD599;
+    --luz-secundaria-1:#69FCF7; /*No se usa*/
+    --luz-secundaria-2: #05FAF2;
+    --luz-secundaria-3: #04C8C1;
+
+    --sombra-primaria-1:#FFBF66;
+    --sombra-primaria-2:#FFAA33; /*No se usa*/
+    --sombra-primaria-3:#FF9500;
+    --sombra-secundaria-1:#026461; /*No se usa*/
+    --sombra-secundaria-2:#013230;
+    --sombra-secundaria-3:#012322; /*No se usa*/
+
+    --color-titulos:#0F3F50; /*No se usa*/
+    --color-parrafos:#333538;
+
+    --color-negro: #020817;
+    
+    --fuente-logo: "Press Start 2P", system-ui;
+    --fuente-nav-menu: "DotGothic16", sans-serif;
+    --fuente-categorias: "Silkscreen", sans-serif;
+    --fuente-general: "Nunito", sans-serif;
+    --fuente-footer: "Maven Pro", sans-serif;
+    --fuente-newsletter: "Audiowide", sans-serif;
+}
+
+/*------------- LOADER -------------*/
+.loader {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: var(--color-acento);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 22px;
+    transition: opacity 0.4s ease;
+}
+
+.loader.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.ring-wrap {
+    position: relative;
+    width: 280px;
+    height: 280px;
+    overflow: visible;
+}
+
+svg.ring {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+}
+
+svg.ring.glow {
+    filter:
+        drop-shadow(0 0 4px var(--neon)) 
+        drop-shadow(0 0 12px var(--neon-soft)) 
+        drop-shadow(0 0 26px var(--neon-soft));
+}
+
+.track {
+    fill: none;
+    stroke: var(--track);
+    stroke-width: 10;
+}
+
+.progress {
+    fill: none;
+    stroke: var(--neon);
+    stroke-width: 10;
+    stroke-linecap: round;
+    filter:
+        drop-shadow(0 0 4px var(--neon)) 
+        drop-shadow(0 0 12px var(--neon-soft)) 
+        drop-shadow(0 0 26px var(--neon-soft));
+
+}
+
+.duck-wrap {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.duck {
+    width: 140px;
+    height: 140px;
+    object-fit: contain;
+    transform-origin: 50% 88%;
+    animation: wag 3s ease-in-out infinite;
+}
+
+@keyframes wag {
+    0% {
+        transform: rotate(-13deg);
+    }
+
+    50% {
+        transform: rotate(13deg);
+    }
+
+    100% {
+        transform: rotate(-13deg);
+    }
+}
+
+.duck.done {
+    animation-play-state: paused;
+}
+
+.percent {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    font-family: var(--fuente-newsletter);
+    color: var(--neon);
+    text-shadow: 0 0 6px var(--neon), 0 0 18px var(--neon-soft);
+    min-width: 70px;
+    text-align: center;
+}
+
+/*------------------- HEADER -------------------*/
+
+.contenedor-header header {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem;
+}
+
+.header-izquierda {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem; /* separación chica entre hamburguesa y links */
+    justify-self: start; /* pegado a la izquierda de su columna */
+}
+
+header, footer {
+    background-color: var(--color-secundario);
+    text-align: center;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.1rem;
+    justify-self: center;
+}
+
+.logo-fuente{
+    color: var(--color-negro);
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.logo-fuente, .logo-footer-fuente {
+    font-family: var(--fuente-logo);
+    font-style: normal;
+}
+
+.logo-imagen-header {
+    width: 30px; 
+    height: auto; 
+    margin-right: 10px; 
+}
+
+.menu-hamburguesa {
+    flex-direction: column;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+}
+
+.menu-navegacion, nav ul {
+    font-family: var(--fuente-nav-menu);
+    display: none;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; 
+    list-style: none;
+}
+
+.menu-navegacion a, nav ul a {
+    text-decoration: none;
+    color: var(--color-parrafos);
+}
+
+.menu-navegacion, nav ul a:hover, .menu-hamburguesa:hover{
+    color: var(--luz-primaria-1);
+}
+
+.menu-desplegable {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    background-color: var(--color-secundario);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    list-style: none;
+    width: 250px;
+    gap: 0.1rem;
+}
+
+.menu-desplegable svg{
+    width: 20px;
+    height: 20px;
+    color: var(--color-negro);
+}
+
+.menu-desplegable.abierto {
+    display: flex;
+}
+
+.menu-desplegable-container {
+    position: absolute;
+    top: 3rem;
+    left: 0;
+    width: 100%;
+}
+
+.menu-desplegable li {
+    width: 100%;
+}
+
+.menu-desplegable li a {
+    color: var(--color-negro);
+    text-decoration: none;
+    padding: 0.5rem;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: left;
+}
+
+.menu-desplegable li:nth-child(odd) a {
+    background-color:var(--luz-secundaria-3);
+}
+
+.icono-usuario, .icono-carrito, .icono-facebook, .icono-youtube, .icono-x, .icono-instagram {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icono-usuario, .icono-carrito{
+    color: var(--color-negro);
+    width: 24px;
+    height: 24px;
+    gap: 0.5rem;
+}
+
+.iconos-usuario-carrito{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    justify-self: end;
+}
+
+.iconos-usuario-carrito svg:hover{
+    color: var(--luz-primaria-1);
+    filter: drop-shadow(2px 2px 2px #161b20);
+}
+
+.barra-busqueda-container {
+    display: flex;
+    justify-content: right;
+    background-color: var(--sombra-primaria-1);
+    padding: 0.5rem;
+}
+
+.barra-busqueda {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 10px;
+    width: 100%;
+    background-color: var(--luz-primaria-1);
+}
+
+/*------------- DESPLEGABLES USUARIO Y CARRITO -------------*/
+.panel-izquierdo {
+    position: relative;
+}
+
+/* Reset de botón + efectos del ícono */
+.icono-btn {
+    position: relative;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: transform 0.15s ease, color 0.15s ease;
+}
+
+.icono-btn:hover {
+    transform: translateY(-3px) scale(1.15);
+}
+
+.icono-btn:active {
+    transform: translateY(1px) scale(0.9);
+}
+
+.icono-btn[aria-expanded="true"] {
+    color: var(--luz-primaria-1);
+}
+
+.badge-carrito { /* Globito del carrito */
+    position: absolute;
+    top: -6px;
+    right: -8px;
+    min-width: 16px;
+    height: 16px;
+    padding: 0 4px;
+    border-radius: 8px;
+    background: var(--color-acento);
+    color: var(--luz-primaria-1);
+    font-family: var(--fuente-general);
+    font: 700 0.65rem/16px;
+    text-align: center;
+}
+
+.badge-carrito.pop {
+    animation: pop 0.3s ease;
+}
+
+@keyframes pop {
+    50% {
+        transform: scale(1.5);
+    }
+}
+
+/* Panel desplegable */
+.panel-desplegable {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    width: 240px;
+    padding: 1rem;
+    background: var(--sombra-primaria-1);
+    color: #1c1c1c;
+    border-radius: 12px;
+    box-shadow: 4px 4px 0 var(--color-negro);
+    text-align: left;
+    font-family: var(--fuente-general);
+    z-index: 20;
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+}
+
+.panel-desplegable.abierto {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.panel-titulo {
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+    font-family: var(--fuente-categorias);
+}
+
+.panel-lista {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.panel-lista li,
+.panel-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+}
+
+.panel-total {
+    margin: 0.75rem 0;
+    padding-top: 0.5rem;
+    border-top: 2px dashed var(--sombra-primaria-1);
+    font-weight: 800;
+}
+
+.btn-pagar {
+    width: 100%;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 20px;
+    background: var(--color-acento);
+    font-family: var(--fuente-categorias);
+    box-shadow: 3px 3px 0 var(--color-negro);
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.btn-pagar:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--color-negro);
+    background:var(--luz-secundaria-2);
+}
+
+.panel-desplegable a {
+    display: block;
+    padding: 0.5rem;
+    border-radius: 8px;
+    color: var(--color-negro);
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.panel-desplegable a:hover {
+    background: var(--luz-secundaria-3);
+}
+
+
+
+/*------------------- BODY  -------------------*/
+body {
+    background-color: var(--color-primario); 
+    margin: 0;
+    padding: 0;
+}
+
+.press-start, .titulos-categorias, .titulo-card-destacada {
+    font-family: var(--fuente-categorias);
+    font-weight: 400;
+    font-style: normal;
+    font-weight: 500;
+    font-style: normal;
+    color: var(--color-negro);
+    text-align: left;
+}
+
+.titulos-categorias {
+    margin-left: 1rem;
+    font-size: 1.2rem;
+    padding-bottom: 15px;
+}
+
+.contenedor-home {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto auto auto auto auto;
+    grid-template-areas:
+        "press"
+        "recom"
+        "gratuito"
+        "cardDest "
+        "info"
+        "aventura";
+    gap: 1rem;
+    overflow-x: hidden;
+    place-items: center;
+}
+
+.recomendaciones{
+    grid-area: recom;
+}
+
+.gratuitos{
+    grid-area: gratuito;
+}
+
+.aventuras{
+    grid-area: aventura;
+}
+
+.recomendaciones,
+.gratuitos, .aventuras {
+    width: 100%;
+    justify-self: stretch;
+}
+
+.press-start {
+    font-size: 1.8rem;
+    padding-bottom: 1.5rem;
+    grid-area: press;
+    padding: 1rem;
+    justify-self: start;
+    text-shadow: 5px 5px 2px #a2a7ad;
+}
+
+.press-start svg{
+    width: 2rem;
+    height: 2rem;
+    color: var(--color-negro);
+    filter: drop-shadow(5px 5px 2px #a2a7ad) ;
+}
+
+.juego-card {
+    flex: 0 0 100%;
+    background-color: var(--color-primario);
+    border-radius: 35px;
+    overflow: hidden;
+}
+
+.juego-imagen-gratis, .juego-imagen-pago {
+    width: 100%;
+    height: 190px;
+    border-radius: 35px;
+    object-fit: cover;
+    display: block;
+    border: 3.5px solid transparent;
+    transition: border-color 0.3s ease-in-out;
+}
+
+.juego-imagen-gratis:hover{
+    border-color: var(--luz-secundaria-3);
+}
+
+.juego-imagen-pago:hover{
+    border-color: var(--color-acento);
+}
+
+.juego-info {
+    padding: 0.75rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.juego-texto{
+    min-width: 0;
+    flex: 1;
+}
+
+.juego-nombre {
+    font-family: var(--fuente-general);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-negro);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%; 
+}
+
+.juego-precio {
+    font-family: var(--fuente-general);
+    font-size: 0.8rem;
+    color: var(--color-acento);
+    font-weight: 700;
+}
+
+.juego-precio.gratis {
+    color: var(--color-secundario);
+}
+
+.btn-jugar, 
+.btn-agregar {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    gap: 0.3rem;
+    border: none;
+    border-radius: 20px;
+    padding: 0.4rem 0.8rem;
+    font-family: var(--fuente-general);
+    font-weight: 700;
+    font-size: 0.75rem;
+    cursor: pointer;
+    white-space: nowrap;
+    box-shadow: 0px 8px 6px rgba(0, 0, 0, 0.2);
+
+    transition: .5s, color .10s;
+}
+
+.btn-jugar {
+    background-color: var(--color-secundario);
+    color: var(--color-negro);
+
+    text-decoration: none; /*Aplica para el href redigirido para el peg.html*/
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.btn-agregar {
+    background-color: var(--sombra-primaria-3);
+    color: var(--color-negro);
+}
+
+.btn-jugar:hover,
+.btn-agregar:hover {
+    transform: translatey(-15px);
+    color: var(--luz-primaria-1);
+}
+
+.juego-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.nav-btn-next, .nav-btn-prev{
+    background-color: var(--luz-secundaria-3);
+    border: none;
+    border-radius: 10px;
+
+    width: 44px;
+    height: 44px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.nav-btn-next:hover, .nav-btn-prev:hover{
+    background-color: var(--color-acento);
+}
+
+.nav-btn-next svg, .nav-btn-prev svg {
+    width: 28px;
+    height: 28px;
+    color: var(--color-negro);
+}
+
+.nav-btn-next svg:hover, .nav-btn-prev svg:hover {
+    color: var(--luz-primaria-1);
+}
+
+/*-------- CARRUSELES --------*/
+
+.carrusel-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.carrusel-track {
+    display: flex;
+    gap: 1rem;
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+    width: 100%;
+    min-width: 0;
+}
+
+
+
+/*-------- Carrusel card especial --------*/
+
+:root {
+  --radius: 0.875rem;
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --foreground: oklch(0.96 0.01 85);
+  --card: oklch(0.22 0.02 60);
+  --primary: oklch(0.8 0.14 70);
+  --muted-foreground: oklch(0.7 0.02 75);
+  --border: oklch(1 0 0 / 12%);
+  --slide-w: 280px;
+  --slide-h: 200px;
+  --gap: 24px;
+  --view-w: 100%;
+}
+
+.carrusel-esp-container {
+    grid-area: cardDest;
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+}
+
+.carousel {
+    position: relative;
+    width: 100%;
+    max-width: var(--view-w);
+    overflow: hidden;
+    padding: 48px 0;
+}
+
+.container-nombre-juego-destacado{
+    font-family: var(--fuente-general);
+    font-weight: 700;
+    font-size: 0.75rem;
+    background-color: var(--color-primario);
+    height: auto;
+    width: auto;
+    border-radius: 15px;
+}
+
+.nombre-juego-destacado {
+    font-size: 1.5rem; 
+    padding: 10px;
+}
+
+
+.carousel__track {
+  display: flex;
+  align-items: center;
+  gap: var(--gap);
+  will-change: transform;
+}
+
+.carousel__slide {
+  flex-shrink: 0;
+  width: var(--slide-w);
+  height: var(--slide-h);
+  object-fit: cover;
+  user-select: none;
+  -webkit-user-drag: none;
+  filter: blur(5px) saturate(0.8);
+  opacity: 0.6;
+  transform: scale(0.86);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.45);
+  transition:
+    filter 600ms ease,
+    opacity 600ms ease,
+    transform 600ms ease,
+    border-radius 600ms ease;
+}
+
+.carousel__slide.is-active {
+  filter: blur(0) saturate(1);
+  opacity: 1;
+  transform: scale(1);
+  border-radius: var(--radius-xl);
+}
+
+/*------Flechas------*/
+.carousel__arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 9999px;
+  border: 1px solid var(--border);
+  background: color-mix(in oklab, var(--card) 80%, transparent);
+  color: var(--foreground);
+  cursor: pointer;
+  backdrop-filter: blur(4px);
+  transition: all 200ms ease;
+}
+
+.carousel__arrow:hover:not(:disabled) {
+  background: oklch(0.3 0.03 65);
+  color: oklch(0.96 0.01 85);
+}
+
+.carousel__arrow:active:not(:disabled) {
+  transform: translateY(-50%) scale(0.9);
+}
+
+.carousel__arrow:disabled {
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+.carousel__arrow--prev {
+  left: 12px;
+}
+
+.carousel__arrow--next {
+  right: 12px;
+}
+
+/*------Indicadores------*/
+.carousel__dots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.carousel__dot {
+  height: 6px;
+  width: 6px;
+  border: none;
+  border-radius: 9999px;
+  background: var(--muted-foreground);
+  opacity: 0.4;
+  cursor: pointer;
+  padding: 0;
+  transition: all 500ms ease;
+}
+
+.carousel__dot.is-active {
+  width: 24px;
+  background: var(--primary);
+  opacity: 1;
+}
+
+.precio-descuento {
+    display: flex;
+    align-items: center;
+    border-radius: 15px;
+    overflow: hidden; /* para que el redondeado corte el fondo naranja intenso */
+}
+
+.badge-descuento {
+    background-color: var(--sombra-primaria-1);
+    color: #D11515;
+    font-size: 2rem;
+    font-weight: 700;
+    padding: 0.6rem 0.8rem;
+}
+
+.precios {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--luz-primaria-3);
+    padding: 0.4rem 0.8rem;
+    border-radius: 0px 15px 15px 0px;
+}
+
+.precio-anterior {
+    color: #666;
+    font-size: 1rem;
+    text-decoration: line-through; /* el tachado */
+}
+
+.precio-actual {
+    color: var(--color-acento);
+    font-weight: 700;
+    font-size: 1.7rem;
+}
+
+.titulo-card-destacada{
+    font-size: 1.6rem;
+    z-index: 10; /*Superposición por encima del carrusel de la card especial*/
+    transition: text-shadow 0.4s ease, color 0.4s ease;
+}
+
+.titulo-card-destacada:hover {
+    color: var(--luz-primaria-1);
+    animation: texto-arrastrado-lateral 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+}
+
+@keyframes texto-arrastrado {
+    0% {
+        transform: translateY(0);
+        transform-origin: 50% 50%;
+        text-shadow: none;
+    }
+
+    100% {
+        transform: translateY(50px);
+        transform-origin: 50% 50%;
+        text-shadow: 0 1px 0 var(--color-acento), 0 2px 0 var(--color-acento), 0 3px 0 var(--color-acento), 0 4px 0 var(--color-acento), 0 5px 0 var(--color-acento), 0 6px 0 var(--color-acento), 0 7px 0 var(--color-acento), 0 8px 0 var(--color-acento), 0 9px 0 var(--color-acento), 0 5px 10px rgba(0, 0, 0, 0.3);
+    }
+}
+
+@keyframes texto-arrastrado-lateral {
+    0% {
+        transform: translateX(0);
+        transform-origin: 50% 50%;
+        text-shadow: none;
+    }
+
+    100% {
+        transform: translateX(50px);
+        transform-origin: 50% 50%;
+        text-shadow: 1px 0 0 var(--color-acento), 2px 0 0 var(--color-acento), 3px 0 0 var(--color-acento), 4px 0 0 var(--color-acento), 5px 0 0 var(--color-acento), 6px 0 0 var(--color-acento), 7px 0 0 var(--color-acento), 8px 0 0 var(--color-acento), 9px 0 0 var(--color-acento), 5px 0 10px rgba(0, 0, 0, 0.3);
+    }
+}
+
+/*-------- Categorías en bloque (cards 4x4) --------*/
+.categorias-wrapper {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);   
+    grid-column: 1 / -1;
+    width: 100%;
+    justify-content: center;
+    gap: 1.5rem;
+    padding: 0 1rem 2rem;
+}
+
+.categoria-bloque {
+    background-color: var(--luz-primaria-3);
+    border-radius: 20px;
+    padding: 1rem;
+}
+
+.categoria-bloque .titulos-categorias {
+    margin-left: 0;
+    margin-bottom: 1rem;
+}
+
+.categoria-grid {
+    display: grid;
+    justify-content: center;                  
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+}
+
+/* Ajustes de las cards reutilizadas, solo dentro de estos bloques */
+.categoria-grid .juego-card {
+    background-color: transparent;
+}
+
+.categoria-grid .juego-imagen-gratis,
+.categoria-grid .juego-imagen-pago {
+    height: auto;
+    aspect-ratio: 4 / 3;   /* más cuadrada = 1 / 1, más panorámica = 16 / 9 */
+}
+
+.categoria-grid .juego-info {
+    flex-direction: column;                   
+    align-items: stretch;   
+    gap: 0.4rem;
+}
+
+.categoria-grid .juego-nombre {
+    font-size: 0.65rem;
+}
+
+.categoria-grid .juego-precio {
+    font-size: 0.65rem;
+}
+
+.categoria-grid .btn-jugar,
+.categoria-grid .btn-agregar {
+    padding: 0.3rem 0.6rem;
+    font-size: 0.65rem;
+    gap: 0.2rem;
+    justify-content: center;
+}
+
+.info-card-destacada {
+    grid-area: info;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+    justify-self: center
+}
+
+/*------------------- FOOTER -------------------*/
+
+.footer-inferior {
+    background-color: var(--sombra-secundaria-2);
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 100%;
+    font-family: var(--fuente-footer);
+    font-style: normal;
+    font-size: 12px;
+    padding-top:1rem;
+    padding-bottom: 1rem;
+}
+
+.footer-columna h4 {
+    font-size: 0.9rem;
+    font-family: var(--fuente-footer);
+    color: var(--luz-primaria-1);
+
+    display: flex;
+    justify-content: space-between;    /* deja el +/− a la derecha */
+    align-items: center;
+    padding: 0.9rem 0;                 
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+}
+
+.footer-columna ul {
+    list-style: none;
+    display: none;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding: 0.5rem 0 1rem;
+}
+
+.footer-columna.abierta ul {
+    display: flex;
+}
+
+.footer-columna h4::after {
+    content: "+";
+}
+
+.footer-columna.abierta h4::after {
+    content: "−";
+}
+
+.footer-columna a {
+    color: var(--luz-primaria-1);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-family: var(--fuente-footer);
+}
+
+.footer-columna a:hover{
+    color: var(--color-parrafos);
+}
+
+.footer-newsletter {
+    background-color: var(--luz-primaria-1);
+    color: var(--color-parrafos);
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    position: relative;
+    margin-top: 1.5rem; /* deja espacio arriba para que el círculo no tape el borde */
+    box-shadow: 7px 6px 3px var(--color-parrafos);
+    order: 2;
+}
+
+.footer-newsletter input {
+    width: 100%;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 10px;
+    background-color: #D9D9D9;
+    margin: 0.5rem 0 1rem;
+}
+
+.footer-newsletter button {
+    background-color: var(--color-acento);
+    color: var(--color-negro);
+    border: none;
+    padding: 0.6rem 1.5rem;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: var(--fuente-general);
+    box-shadow: 0 6px 0 var(--sombra-primaria-3);
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.footer-newsletter button:hover { /*Animación estilo botón que se hunde*/
+    transform: translateY(6px);
+}
+
+.newsletter-contenido-fuente, .newsletter-email-fuente{
+    font-family: var(--fuente-footer);
+    font-weight: 10;
+    color: var(--color-parrafos);
+}
+
+.newsletter-contenido-fuente{
+    font-size: 15px;
+    padding-bottom: 1rem;
+}
+
+.newsletter-email-fuente{
+    font-size: 10px;
+}
+
+.newsletter-icono {
+    position: absolute;
+    top: -1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 3rem;
+    height: 3rem;
+    background-color: var(--sombra-primaria-1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.newsletter-icono svg {
+    width: 35px;
+    height: 35px;
+    color: var(--color-negro);
+}
+
+.iconos-redes-sociales{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-self: start;
+}
+
+.iconos-redes-sociales svg{
+    transition: transform 0.25s ease;
+}
+
+.iconos-redes-sociales svg:hover{
+    transform: scale(1.25);
+}
+
+.footer-superior {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    text-align: left;
+    align-items: start;
+    padding: 1.5rem 1rem;
+}
+
+.logo-imagen-footer{
+    width: 150px; 
+    height: auto; 
+}
+
+.logo-footer-fuente{
+    color: var(--luz-primaria-1);
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+.icono-facebook, .icono-youtube, .icono-x, .icono-instagram{
+    color: var(--luz-primaria-1);
+    width: 20px;
+    height: 20px;
+    gap: 0.8rem;
+}
+
+#newsletter-fuente {
+    font-family: var(--fuente-newsletter);
+    font-weight: 400;
+    font-style: normal;
+    font-size: 10px;
+    padding-bottom: 0.5rem;
+}
+
+.links-fat-footer{
+    display: grid;
+    grid-template-columns: 1fr;
+    order: 3;
+}
+
+.logo-nombre-redes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.2rem;
+    padding-top: 1rem;
+    order: 1;
+}
+
+
+
+
+
+
+
+
+
+
+
+/*-------------------------------------- DISEÑO RESPONSIVE - DESKTOP ---------------------------------------*/
+@media (min-width: 768px){
+
+/*------------------- HEADER -------------------*/
+
+.contenedor-header header {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+}
+
+.header-izquierda {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem; /* separación chica entre hamburguesa y links */
+    justify-self: start; /* pegado a la izquierda de su columna */
+    padding-left: 1rem; /* espacio a la izquierda del borde */
+}
+
+.menu-navegacion, nav ul{
+    display: flex;
+}
+
+.logo-imagen-header {
+    width: 45px; 
+    height: auto; 
+    margin-right: 10px; 
+}
+
+.logo-fuente{
+    font-size: 1.4rem;
+}
+
+.menu-desplegable-container {
+    top: 4.4rem;  
+}
+
+.barra-busqueda-container {
+    display: flex;
+    justify-content: right;
+    background-color: var(--sombra-primaria-1);
+    padding: 0.5rem;
+}
+
+.barra-busqueda {
+    padding: 0.5rem;
+    border: none;
+    border-radius: 10px;
+    width: 200px;
+    margin-right: 1rem;
+    background-color: var(--luz-primaria-1);
+}
+
+
+/*------------------- BODY -------------------*/
+
+.titulos-categorias{
+    margin-left: 8rem;
+    font-size: 1.5rem;
+    padding-bottom: 15px;
+}
+
+.contenedor-home {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows: 1fr 1fr 1fr auto auto auto;
+    grid-template-areas:
+        "press press press"
+        "recom recom recom"
+        "gratuito gratuito gratuito"
+        "cardDest cardDest info"
+        "cardDest cardDest info"
+        "aventura aventura aventura";
+    gap: 1rem;
+    overflow-x: hidden;
+    place-items: center;
+}
+
+.press-start {
+    font-size: 4.5rem;
+    padding-bottom: 1.5rem;
+    grid-area: press;
+    padding: 0 8rem;
+    justify-self: start;
+    text-shadow: 5px 5px 2px #a2a7ad;
+}
+
+.press-start svg{
+    width: 5rem;
+    height: 5rem;
+}
+
+.juego-card {
+    flex: 0 0 260px;
+}
+
+.info-card-destacada {
+    grid-area: info;
+    height: 100%;
+    justify-content: center;
+    justify-self: start;
+}
+
+.titulo-card-destacada{
+    font-size: 2.5rem;
+    z-index: 10; /*Superposición por encima del carrusel de la card especial*/
+}
+
+.titulo-card-destacada:hover {
+    animation-name: texto-arrastrado;
+}
+
+
+/*CARRUSEL-------------------*/
+
+.carrusel-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    max-width: 80vw;
+    margin: 0 auto;
+}
+
+/*CARD ESPECIAL-------------*/
+
+:root {
+  --slide-w: 500px;
+  --slide-h: 360px;
+  --gap: 24px;
+  --view-w: 680px;
+}
+
+
+/* ============ Carrusel especial ============ */
+.carrusel-esp-container{
+    grid-area: cardDest;
+    max-width: 680px;
+}
+
+.nav-btn-next svg, .nav-btn-prev svg {
+    width: 35px;
+    height: 35px;
+}
+
+.container-nombre-juego-destacado{
+    height: 100px;   
+}
+
+.nombre-juego-destacado{
+    font-size: 2.5rem;
+}  
+
+/*------Categorias en bloque (4x4)------*/
+
+.categorias-wrapper {
+    grid-template-columns: repeat(2, max-content);
+    gap: 2rem;
+    padding: 0 2rem 3rem;
+}
+
+.categoria-bloque {
+    padding: 1rem 1.5rem 1.5rem;
+}
+
+.categoria-grid {                 
+    grid-template-columns: repeat(2, 220px);
+    gap: 0.75rem 1rem;
+}
+
+
+.categoria-grid .juego-imagen-gratis, .categoria-grid .juego-imagen-pago {
+    height: 150px;
+}
+
+.categoria-grid .juego-info {
+    flex-direction: row;
+    align-items: center;
+}
+
+
+/*-------------------FOOTER -------------------*/
+
+.footer-superior {
+    grid-template-columns: 1.2fr 2.4fr minmax(150px, 1.2fr);
+    gap: 2rem;
+    padding: 2rem 3rem 1rem 0.5rem; /*Valores top, right, bottom, left*/
+}
+
+.logo-imagen-footer{
+    width: 200px; 
+}
+
+.logo-footer-fuente{
+    font-size: 1.5rem;
+}
+
+.icono-facebook, .icono-youtube, .icono-x, .icono-instagram{
+    width: 30px;
+    height: 30px;
+    gap: 1rem;
+}
+
+
+#newsletter-fuente {
+    font-size: 25px;
+    padding-bottom: 1rem;
+}
+
+.links-fat-footer {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, auto);
+    grid-auto-flow: column;
+    gap: 2rem 2.5rem;
+    order: 0;
+}
+
+.logo-nombre-redes,
+.footer-newsletter,
+.links-fat-footer {
+    order: 0;
+}
+
+.footer-columna h4 {
+    display: block;
+    padding: 0;
+    margin-bottom: 0.2rem;
+    border-bottom: none;
+    cursor: default;
+}
+
+.footer-columna h4::after,
+.footer-columna.abierta h4::after {
+    content: none;
+}
+
+.footer-columna ul {
+    display: flex;
+    padding: 0;
+}
+
+.logo-nombre-redes {
+    gap: 0.5rem;
+    padding-top: 2rem;
+}
+
+}
