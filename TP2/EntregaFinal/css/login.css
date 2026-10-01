@@ -4,6 +4,47 @@
     box-sizing: border-box;
 }
 
+:root {
+    /*Bloque de variables css*/
+    /*Del loader*/
+    --track: #1c1c24;
+    --neon: #fff200;
+    --neon-soft: #ffe600;
+
+    /*De la página*/
+    --color-primario: #FFE3BB;
+    --color-secundario: #03A6A1;
+    --color-acento: #FF4F0F;
+
+    --luz-primaria-1: #FBF3EA;
+    --luz-primaria-2:#F7E8D4;
+    --luz-primaria-3:#FFD599;
+    --luz-secundaria-1:#69FCF7;
+    --luz-secundaria-2: #05FAF2;
+    --luz-secundaria-3: #04C8C1;
+
+    --sombra-primaria-1:#FFBF66;
+    --sombra-primaria-2:#FFAA33;
+    --sombra-primaria-3:#FF9500;
+    --sombra-secundaria-1:#026461;
+    --sombra-secundaria-2:#013230;
+    --sombra-secundaria-3:#012322;
+
+    --color-titulos:#0F3F50;
+    --color-parrafos:#333538;
+    --color-warning: #8d1111;
+    --color-input: #D9D9D9;
+
+    --color-negro: #020817;
+    
+    --fuente-logo: "Press Start 2P", system-ui;
+    --fuente-nav-menu: "DotGothic16", sans-serif;
+    --fuente-categorias: "Silkscreen", sans-serif;
+    --fuente-general: "Nunito", sans-serif;
+    --fuente-footer: "Maven Pro", sans-serif;
+    --fuente-newsletter: "Audiowide", sans-serif;
+}
+
 /*------------------- HEADER -------------------*/
 
 .contenedor-header header {
@@ -23,19 +64,19 @@
 }
 
 header, footer {
-    background-color: #03A6A1;
+    background-color: var(--color-secundario);
     color: #fff;
     text-align: center;
 }
 
 .logo-imagen-header {
-    width: 45px; 
-    height: auto; 
-    margin-right: 10px; 
+    width: 45px;
+    height: auto;
+    margin-right: 10px;
 }
 
 .logo-fuente, .logo-footer-fuente {
-    font-family: "Press Start 2P", system-ui;
+    font-family: var(--fuente-logo);
     font-style: normal;
 }
 
@@ -46,22 +87,22 @@ header, footer {
 }
 
 .menu-navegacion, nav ul {
-    font-family: "DotGothic16", system-ui;
+    font-family: var(--fuente-nav-menu);
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 20px; 
+    gap: 20px;
     list-style: none;
 }
 
 .menu-navegacion a, nav ul a {
     text-decoration: none;
-    color: #333538;
+    color: var(--color-parrafos);
 }
 
 .menu-navegacion, nav ul a:hover, .icono-usuario:hover, .icono-carrito:hover, .menu-hamburguesa:hover{
-    color: #FBF3EA;
+    color: var(--luz-primaria-1);
 }
 
 .logo {
@@ -103,7 +144,7 @@ header, footer {
 .barra-busqueda-container {
     display: flex;
     justify-content: right;
-    background-color: #FFBF66;
+    background-color: var(--sombra-primaria-1);
     padding: 0.5rem;
 }
 
@@ -113,14 +154,14 @@ header, footer {
     border-radius: 10px;
     width: 200px;
     margin-right: 1rem;
-    background-color: #FBF3EA;
+    background-color: var(--luz-primaria-1);
 }
 
 .menu-desplegable {
     display: none;
     flex-direction: column;
     position: absolute;
-    background-color: #03A6A1;
+    background-color: var(--color-secundario);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     z-index: 1;
     list-style: none;
@@ -160,9 +201,8 @@ header, footer {
 }
 
 .menu-desplegable li:nth-child(odd) a {
-    background-color: #04C8C1; /*Turquesa mas claro de menu */
+    background-color: var(--luz-secundaria-3);
 }
-
 
 
 
@@ -180,7 +220,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 90vh; 
+    min-height: 90vh;
     padding: 3rem 1rem;
 }
 
@@ -188,7 +228,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #FFBF66;
+    background-color: var(--sombra-primaria-1);
     width: 100%;
     max-width: 400px;
     padding: 1rem 1.5rem 2rem 1.5rem;
@@ -203,14 +243,14 @@ body {
 }
 
 .form-nombre {
-    font-family: 'Audiowide', sans-serif;
+    font-family: var(--fuente-newsletter);
     font-style: normal;
     font-size: 30px;
     font-weight: 400;
 }
 
 .login-iniciar-sesion h5, input, .login-registro h5 {
-    font-family: "Nunito", sans-serif;
+    font-family: var(--fuente-general);
     font-weight: 300;
 }
 
@@ -232,7 +272,35 @@ body {
     border: none;
     border-radius: 5px;
     width: 100%;
-    background-color: #D9D9D9;
+    background-color: var(--color-input);
+}
+
+/*------------------- VALIDACIÓN -------------------*/
+.mensaje-error {
+    display: none;
+    margin-top: 0.3rem;
+    font-family: var(--fuente-general);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color:  var(--color-warning);
+}
+
+.input-container.invalido .mensaje-error {
+    display: block;
+}
+
+.input-container.invalido .input {
+    background-color: #FFD6D6;
+    outline: 2px solid var(--color-warning);
+}
+
+.input-container.invalido h5 {
+    color: var(--color-warning);
+}
+
+/* Reutiliza el keyframe "sacudir" */
+.input-container.invalido {
+    animation: sacudir 0.4s;
 }
 
 .iconos-ingresarCon-redes {
@@ -269,11 +337,11 @@ body {
 }
 
 .btn-ingresar, .btn-crearCuenta{
-    background-color:#03A6A1;
+    background-color: var(--color-secundario);
 }
 
 .btn-registrar, .btn-iniciarSesion{
-    background-color: #FF4F0F;
+    background-color: var(--color-acento);
 }
 
 .div-centrado{
@@ -304,11 +372,11 @@ body {
 }
 
 .btn-ingresar:hover {
-    box-shadow: 0 0 10px #03A6A1, 0 0 20px #03A6A1, 0 0 30px #03A6A1;
+    box-shadow: 0 0 10px var(--color-secundario), 0 0 20px var(--color-secundario), 0 0 30px var(--color-secundario);
 }
 
 .btn-registrar:hover{
-    box-shadow: 0 0 10px #FF4F0F, 0 0 20px #FF4F0F, 0 0 30px #FF4F0F;
+    box-shadow: 0 0 10px var(--color-acento), 0 0 20px var(--color-acento), 0 0 30px var(--color-acento);
 }
 
 /*Botones estilo máquina de arcade con profundidad*/
@@ -347,7 +415,7 @@ body {
 .exito-overlay {
     position: absolute;
     inset: 0;
-    background-color: #FFBF66;
+    background-color: var(--sombra-primaria-1);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -377,7 +445,7 @@ body {
 
 /* 2. Mensaje arcade: se escribe letra por letra y después parpadea */
 .mensaje-exito {
-    font-family: "Silkscreen", sans-serif;
+    font-family: var(--fuente-categorias);
     font-size: 1rem;
     color: #000;
     clip-path: inset(0 100% 0 0);
@@ -402,14 +470,14 @@ body {
     opacity: 0;
 }
 
-.confeti span:nth-child(1) { --dx: -140px; background: #FF4F0F; }
-.confeti span:nth-child(2) { --dx: -100px; background: #03A6A1; animation-delay: 0.1s; }
-.confeti span:nth-child(3) { --dx: -60px;  background: #FBF3EA; animation-delay: 0.2s; }
-.confeti span:nth-child(4) { --dx: -20px;  background: #FF4F0F; animation-delay: 0.05s; }
-.confeti span:nth-child(5) { --dx: 20px;   background: #03A6A1; animation-delay: 0.15s; }
-.confeti span:nth-child(6) { --dx: 60px;   background: #FBF3EA; animation-delay: 0.25s; }
-.confeti span:nth-child(7) { --dx: 100px;  background: #FF4F0F; animation-delay: 0.1s; }
-.confeti span:nth-child(8) { --dx: 140px;  background: #03A6A1; animation-delay: 0.2s; }
+.confeti span:nth-child(1) { --dx: -140px; background: var(--color-acento); }
+.confeti span:nth-child(2) { --dx: -100px; background: var(--color-secundario); animation-delay: 0.1s; }
+.confeti span:nth-child(3) { --dx: -60px;  background: var(--luz-primaria-1); animation-delay: 0.2s; }
+.confeti span:nth-child(4) { --dx: -20px;  background: var(--color-acento); animation-delay: 0.05s; }
+.confeti span:nth-child(5) { --dx: 20px;   background: var(--color-secundario); animation-delay: 0.15s; }
+.confeti span:nth-child(6) { --dx: 60px;   background: var(--luz-primaria-1); animation-delay: 0.25s; }
+.confeti span:nth-child(7) { --dx: 100px;  background: var(--color-acento); animation-delay: 0.1s; }
+.confeti span:nth-child(8) { --dx: 140px;  background: var(--color-secundario); animation-delay: 0.2s; }
 
 .exito .confeti span {
     animation: caer 1.2s ease-out forwards;
@@ -454,12 +522,12 @@ body {
 }
 
 .footer-inferior {
-    background-color: #013230;
+    background-color: var(--sombra-secundaria-2);
     display: flex;
     justify-content: center;
     box-sizing: border-box;
     width: 100%;
-    font-family: "Maven Pro", sans-serif;
+    font-family: var(--fuente-footer);
     font-style: normal;
     font-size: 12px;
     padding-top:1rem;
@@ -483,7 +551,7 @@ body {
 .footer-columna h4 {
     font-size: 0.9rem;
     margin-bottom: 0.2rem;
-    font-family: "Maven Pro", sans-serif;;
+    font-family: var(--fuente-footer);
 }
 
 .footer-columna ul {
@@ -497,26 +565,26 @@ body {
     color: #fff;
     text-decoration: none;
     font-size: 0.85rem;
-    font-family: "Maven Pro", sans-serif;
+    font-family: var(--fuente-footer);
 }
 
 .footer-columna a:hover{
-    color: #333538;
+    color: var(--color-parrafos);
 }
 
 .footer-newsletter {
-    background-color: #FBF3EA;
-    color: #333538;
+    background-color: var(--luz-primaria-1);
+    color: var(--color-parrafos);
     border-radius: 12px;
     padding: 1.5rem;
     text-align: center;
     position: relative;
     margin-top: 1.5rem; /* deja espacio arriba para que el círculo no tape el borde */
-    box-shadow: 7px 6px 3px #333538;
+    box-shadow: 7px 6px 3px var(--color-parrafos);
 }
 
 #newsletter-fuente {
-    font-family: "Audiowide", sans-serif;
+    font-family: var(--fuente-newsletter);
     font-weight: 400;
     font-style: normal;
     font-size: 25px;
@@ -524,9 +592,9 @@ body {
 }
 
 .newsletter-contenido-fuente, .newsletter-email-fuente{
-    font-family: "Maven Pro", sans-serif;
+    font-family: var(--fuente-footer);
     font-weight: 10;
-    color: #333538;
+    color: var(--color-parrafos);
 }
 
 .newsletter-contenido-fuente{
@@ -545,7 +613,7 @@ body {
     transform: translateX(-50%);
     width: 3rem;
     height: 3rem;
-    background-color: #FFBF66;
+    background-color: var(--sombra-primaria-1);
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -571,30 +639,29 @@ body {
     padding: 0.5rem;
     border: none;
     border-radius: 10px;
-    background-color: #D9D9D9;
+    background-color: var(--color-input);
     margin: 0.5rem 0 1rem;
 }
 
 .footer-newsletter button {
-    background-color: #FF4F0F;
-    color: #000000;
+    background-color: var(--color-acento);
+    color: var(--color-negro);
     border: none;
     padding: 0.6rem 1.5rem;
     border-radius: 20px;
     font-weight: bold;
     cursor: pointer;
-    font-family: "Nunito", sans-serif;
-    box-shadow: 2px 2px 8px #333538;
+    font-family: var(--fuente-general);
+    box-shadow: 2px 2px 8px var(--color-parrafos);
 }
 
 .footer-newsletter button{
-    box-shadow: 0 6px 0 #FF9500; /* "sombra" que simula el grosor del botón */
+    box-shadow: 0 6px 0 var(--sombra-primaria-3);
     transition: transform 0.1s, box-shadow 0.1s;
 }
 
 .footer-newsletter button:hover { /*Animación estilo botón que se hunde*/
     transform: translateY(6px);
-    box-shadow: 0 0px 0 #027570;
 }
 
 .links-fat-footer{

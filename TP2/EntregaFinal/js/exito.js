@@ -2,19 +2,14 @@ document.querySelectorAll('form').forEach(form => {
     form.addEventListener('submit', e => {
         e.preventDefault();
 
-        // Solo aplica al registro: validar que las contraseñas coincidan
-        const pass = form.querySelector('[name="password"]');
-        const repeat = form.querySelector('[name="repeat-password"]');
-        if (repeat) {
-            repeat.setCustomValidity(
-                pass.value !== repeat.value ? 'Las contraseñas no coinciden' : ''
-            );
-        }
+        // Valida todos los campos y marca los incorrectos
+        let todoOk = true;
+        form.querySelectorAll('.input-container input').forEach(input => {
+            if (!validarCampo(input)) todoOk = false;
+        });
 
-        if (!form.checkValidity()) {
-            form.reportValidity();               // muestra el mensaje nativo
-            form.classList.add('error');
-            setTimeout(() => form.classList.remove('error'), 500);
+        if (!todoOk) {
+            form.querySelector('.invalido input').focus(); // lleva el cursor al primer error
             return;
         }
 

@@ -18,20 +18,20 @@
     --color-acento: #FF4F0F;
 
     --luz-primaria-1: #FBF3EA;
-    --luz-primaria-2:#F7E8D4; /*No se usa*/
+    --luz-primaria-2:#F7E8D4;
     --luz-primaria-3:#FFD599;
-    --luz-secundaria-1:#69FCF7; /*No se usa*/
+    --luz-secundaria-1:#69FCF7;
     --luz-secundaria-2: #05FAF2;
     --luz-secundaria-3: #04C8C1;
 
     --sombra-primaria-1:#FFBF66;
-    --sombra-primaria-2:#FFAA33; /*No se usa*/
+    --sombra-primaria-2:#FFAA33;
     --sombra-primaria-3:#FF9500;
-    --sombra-secundaria-1:#026461; /*No se usa*/
+    --sombra-secundaria-1:#026461;
     --sombra-secundaria-2:#013230;
-    --sombra-secundaria-3:#012322; /*No se usa*/
+    --sombra-secundaria-3:#012322;
 
-    --color-titulos:#0F3F50; /*No se usa*/
+    --color-titulos:#0F3F50;
     --color-parrafos:#333538;
 
     --color-negro: #020817;
