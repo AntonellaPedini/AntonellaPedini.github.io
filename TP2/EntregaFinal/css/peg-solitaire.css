@@ -1,0 +1,1795 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body.cuerpo-arcade {
+  background-color: #FFE3BB;
+  font-family: 'Silkscreen', monospace;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+/* ==========================================================================
+   VARIABLES GLOBALES (root)
+   Uso: color: var(--color-primario);
+   ========================================================================== */
+:root {
+  /* ---------- Del loader ---------- */
+  --track: #1c1c24;
+  --neon: #fff200;
+  --neon-soft: #ffe600;
+
+  /* ---------- Colores base de la página ---------- */
+  --color-primario: #FFE3BB;     /* fondo general */
+  --color-secundario: #03A6A1;   /* verde turquesa: header, modales */
+  --color-acento: #FF4F0F;       /* naranja rojizo: modal compartir */
+
+  /* ---------- Luces (tonos claros) ---------- */
+  --luz-primaria-1: #FBF3EA;
+  --luz-primaria-2: #F7E8D4;     /* fondo del input de comentarios */
+  --luz-primaria-3: #FFD599;     /* tarjeta de comunidad */
+  --luz-secundaria-1: #69FCF7;
+  --luz-secundaria-2: #05FAF2;
+  --luz-secundaria-3: #04C8C1;   /* hover de botones */
+
+  /* ---------- Sombras (tonos oscuros) ---------- */
+  --sombra-primaria-1: #FFBF66;  /* barra secundaria, comentarios */
+  --sombra-primaria-2: #FFAA33;
+  --sombra-primaria-3: #FF9500;  /* botones naranjas */
+  --sombra-secundaria-1: #026461; /* fondo de la consola */
+  --sombra-secundaria-2: #013230;
+  --sombra-secundaria-3: #012322;
+
+  /* ---------- Textos ---------- */
+  --color-titulos: #0F3F50;
+  --color-parrafos: #333538;
+
+  /* ---------- Neutros ---------- */
+  --color-negro: #020817;
+  --color-blanco: #FFFFFF;
+
+  /* ---------- Fuentes ---------- */
+  --fuente-logo: "Press Start 2P", system-ui;
+  --fuente-nav-menu: "DotGothic16", sans-serif;
+  --fuente-categorias: "Silkscreen", sans-serif;
+  --fuente-general: "Nunito", sans-serif;
+  --fuente-footer: "Maven Pro", sans-serif;
+  --fuente-newsletter: "Audiowide", sans-serif;
+
+  /* Agregadas para esta página */
+  --fuente-descripcion: "Momo Trust Display", sans-serif;
+  --fuente-comentarios: "Maven Pro", sans-serif;
+}
+
+/* ==========================================================================
+   ENCABEZADO / HEADER
+   ========================================================================== */
+
+/*------------------- HEADER -------------------*/
+
+.contenedor-header header {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+}
+
+.header-izquierda {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem; /* separación chica entre hamburguesa y links */
+    justify-self: start; /* pegado a la izquierda de su columna */
+    padding-left: 1rem; /* espacio a la izquierda del borde */
+}
+
+header, footer {
+    background-color: #03A6A1;
+    color: #fff;
+    text-align: center;
+}
+
+.logo-imagen-header {
+    width: 45px;
+    height: auto;
+    margin-right: 10px; 
+}
+
+.logo-fuente, .logo-footer-fuente {
+    font-family: "Press Start 2P", system-ui;
+    font-style: normal;
+}
+
+.logo-fuente{
+    color: #000000;
+    font-size: 1.4rem;
+    font-weight: 400;
+}
+
+.menu-navegacion, nav ul {
+    font-family: "DotGothic16", system-ui;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    list-style: none;
+}
+
+.menu-navegacion a, nav ul a {
+    text-decoration: none;
+    color: #333538;
+}
+
+.menu-navegacion, nav ul a:hover, .icono-usuario:hover, .icono-carrito:hover, .menu-hamburguesa:hover{
+    color: #FBF3EA;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.1rem;
+    justify-self: center;
+}
+
+.menu-hamburguesa {
+    flex-direction: column;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    font-size: 24px;
+}
+
+.icono-usuario, .icono-carrito, .icono-facebook, .icono-youtube, .icono-x, .icono-instagram {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icono-usuario, .icono-carrito{
+    color: #000000;
+    width: 24px;
+    height: 24px;
+    gap: 0.5rem;
+}
+
+.iconos-usuario-carrito{
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    justify-self: end;
+}
+
+
+.menu-desplegable {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    background-color: #03A6A1;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 50;
+    list-style: none;
+    width: 250px;
+    gap: 0.1rem;
+}
+
+.menu-desplegable svg{
+    width: 20px;
+    height: 20px;
+    color: #1c1c1c;
+}
+
+.menu-desplegable.abierto {
+    display: flex;
+}
+
+.menu-desplegable-container {
+    position: absolute;
+    top: 4.4rem;
+    left: 0;
+    width: 100%;
+}
+
+.menu-desplegable li {
+    width: 100%;
+}
+
+.menu-desplegable li a {
+    color: #1c1c1c;
+    text-decoration: none;
+    padding: 0.5rem;
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    text-align: left;
+}
+
+.menu-desplegable li:nth-child(odd) a {
+    background-color: #04C8C1; /*Turquesa mas claro de menu */
+}
+
+/*------------- DESPLEGABLES USUARIO Y CARRITO -------------*/
+.panel-izquierdo {
+    position: relative;
+}
+
+/* Reset de botón + efectos del ícono */
+.icono-btn {
+    position: relative;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: transform 0.15s ease, color 0.15s ease;
+}
+
+.icono-btn:hover {
+    transform: translateY(-3px) scale(1.15);
+}
+
+.icono-btn:active {
+    transform: translateY(1px) scale(0.9);
+}
+
+.icono-btn[aria-expanded="true"] {
+    color: var(--luz-primaria-1);
+}
+
+.badge-carrito { /* Globito del carrito */
+    position: absolute;
+    top: -6px;
+    right: -8px;
+    min-width: 16px;
+    height: 16px;
+    padding: 0 4px;
+    border-radius: 8px;
+    background: var(--color-acento);
+    color: var(--luz-primaria-1);
+    font-family: var(--fuente-general);
+    font: 700 0.65rem/16px;
+    text-align: center;
+}
+
+.badge-carrito.pop {
+    animation: pop 0.3s ease;
+}
+
+@keyframes pop {
+    50% {
+        transform: scale(1.5);
+    }
+}
+
+/* Panel desplegable */
+.panel-desplegable {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    width: 240px;
+    padding: 1rem;
+    background: var(--sombra-primaria-1);
+    color: #1c1c1c;
+    border-radius: 12px;
+    box-shadow: 4px 4px 0 var(--color-negro);
+    text-align: left;
+    font-family: var(--fuente-general);
+    z-index: 20;
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: opacity 0.2s ease, transform 0.2s ease, visibility 0.2s;
+}
+
+.panel-desplegable.abierto {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.panel-titulo {
+    font-weight: 400;
+    margin-bottom: 0.5rem;
+    font-family: var(--fuente-categorias);
+}
+
+.panel-lista {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.panel-lista li,
+.panel-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+}
+
+.panel-total {
+    margin: 0.75rem 0;
+    padding-top: 0.5rem;
+    border-top: 2px dashed var(--color-negro);
+    font-weight: 800;
+}
+
+.btn-pagar {
+    width: 100%;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 20px;
+    background: var(--color-acento);
+    font-family: var(--fuente-categorias);
+    box-shadow: 3px 3px 0 var(--color-negro);
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.btn-pagar:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0 var(--color-negro);
+    background:var(--luz-secundaria-2);
+}
+
+.panel-desplegable a {
+    display: block;
+    padding: 0.5rem;
+    border-radius: 8px;
+    color: var(--color-negro);
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.panel-desplegable a:hover {
+    background: var(--luz-secundaria-3);
+}
+
+
+.breadcrumb-bar {
+  background-color: #f7be73;
+  padding: 8px 36px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 2px solid rgba(0, 0, 0, 0.08);
+}
+
+.breadcrumb {
+  font-family: 'DotGothic16', monospace;
+  font-size: 19px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.breadcrumb__link {
+  color: #1a1715;
+  text-decoration: none;
+}
+
+.breadcrumb__link:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb__separator {
+  color: #1a1715;
+  font-size: 16px;
+}
+
+.breadcrumb__current {
+  color: #3b322b;
+  font-weight: bold;
+}
+
+.search-box {
+  position: relative;
+  width: 280px;
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  width: 100%;
+  background-color: #ffd899;
+  border: none;
+  border-radius: 8px;
+  padding: 7px 36px 7px 14px;
+  font-family: 'DotGothic16', monospace;
+  font-size: 16px;
+  color: #3a2e24;
+  outline: none;
+}
+
+.search-input::placeholder {
+  color: #635244;
+}
+
+.search-button {
+  position: absolute;
+  right: 10px;
+  background: transparent;
+  border: none;
+  color: #4a3c30;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+
+
+
+
+
+
+
+
+/* ==========================================================================
+   CONSOLA RETRO (MAIN)
+   ========================================================================== */
+.contenedor-principal {
+  flex: 1;
+  display: block;
+  padding: 24px 20px;
+}
+
+.consola-arcade {
+  margin: 0 auto;
+  background-color: #006865;
+  border-radius: 32px;
+  padding: 24px 28px;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+
+  gap: 32px;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.35);
+  max-width: 1870px;
+  width: 100%;
+}
+
+.marco-televisor {
+  position: relative;
+  background: linear-gradient(180deg, #4d4443 0%, #3f3636 100%);
+  border-radius: 18px;
+  padding: 16px 16px 62px 16px;  /* antes: 14px abajo — ahora 62px, para recrear el "mentón" grueso que daba la franja */
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(255, 255, 255, 0.1), 0 6px 14px rgba(0, 0, 0, 0.5);
+}
+
+.tornillo {
+  position: absolute;
+  width: 11px;
+  height: 9px;
+  background: radial-gradient(circle, #8a7e7b 30%, #2b2222 100%);
+  border-radius: 50%;
+  z-index: 10;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.4), 0 1px 2px rgba(0, 0, 0, 0.6);
+}
+
+.tornillo-arriba-izq { top: 12px; left: 14px; }
+.tornillo-arriba-der { top: 12px; right: 14px; }
+.tornillo-abajo-izq  { bottom: 14px; left: 14px; }
+.tornillo-abajo-der  { bottom: 14px; right: 14px; }
+
+
+.pantalla-televisor {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 35%, #186b99 0%, #071f33 88%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset 0 0 16px rgba(0, 0, 0, 0.85);
+}
+
+/* La imagen ocupa toda la pantalla de la consola y mantiene proporción */
+.imagen-juego-pantalla {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 1; /* Queda detrás del botón y las herramientas */
+}
+
+.capa-inicio {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.18);
+  z-index: 2;
+  background: rgba(4, 52, 65, 0.18);   /* antes: 0.32 */
+  backdrop-filter: blur(2px);           /* antes: 4px */
+  -webkit-backdrop-filter: blur(2px);
+  transition: opacity 0.3s ease;
+}
+
+
+.btn-jugar-consola {
+  background-color: var(--sombra-primaria-1);
+  color:var(--color-negro);
+  font-family: 'Silkscreen', monospace;
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  padding: 16px 54px;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 6px 0 var(--luz-secundaria-1), 0 12px 24px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+}
+
+.btn-jugar-consola:hover {
+  background-color: #ff7a00;
+  box-shadow: 0 6px 0 #c25200, 0 14px 28px rgba(255, 122, 0, 0.4);
+  transform: translateY(-2px);
+}
+
+
+.herramientas {
+  position: absolute;
+  bottom: 12px;
+  right: 18px;
+  background-color: #cfc8c2;
+  border-radius: 12px;
+  padding: 6px 12px;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  z-index: 5;
+}
+
+.boton-utilidad {
+  background: transparent;
+  border: none;
+  color: #2b2524;
+  cursor: pointer;
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s ease, color 0.15s ease;
+}
+
+.boton-utilidad:hover {
+  transform: scale(1.25);
+  color: #000000;
+}
+
+
+.panel-lateral {
+  width: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;   /* botonera arriba, mando abajo */
+  align-items: stretch;
+  padding: 28px 0;
+  flex-shrink: 0;
+  gap: 40px;
+}
+
+.botonera-lateral {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: 0 12px;
+}
+
+.boton-arcade {
+  text-decoration: none;
+  height: 70px;
+  border-radius: 20px;
+  padding: 0 16px;
+  background-color: #0b807b;
+  color: #ffffff;
+  font-family: 'Silkscreen', monospace;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-align: center;
+  line-height: 1.4;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 5px 0 #065451;
+  transition: transform 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+
+.boton-arcade:hover {
+  background-color: #12b2a3;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 0 #065451, 0 6px 14px rgba(0, 0, 0, 0.25);
+}
+
+.boton-arcade:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #065451;
+}
+
+.mando-arcade {
+  background-color: #b2bda8;
+  border-radius: 20px;
+  width: 100%;
+  height: 80px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #b2bcbc;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.25);
+}
+
+.botones-mando,
+.palanca-joystick {
+  zoom: 1.3;
+}
+
+.botones-mando {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.boton-3d {
+  position: relative;
+  width: 36px;
+  height: 20px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0;
+  outline: none;
+}
+
+.boton-amarillo { background-color: #9c7c21; box-shadow: 0 2px 0 #73570e; }
+.boton-celeste  { background-color: #0b8485; box-shadow: 0 2px 0 #065b5c; }
+.boton-naranja  { background-color: #a4481b; box-shadow: 0 2px 0 #732a09; }
+
+.tapa-boton {
+  position: absolute;
+  top: 1px;
+  left: 2px;
+  right: 2px;
+  bottom: 4px;
+  border-radius: 50%;
+  transition: top 0.08s ease;
+}
+
+.boton-amarillo .tapa-boton { background-color: #c4b06b; }
+.boton-celeste  .tapa-boton { background-color: #3ebfbd; }
+.boton-naranja  .tapa-boton { background-color: #c97926; }
+
+.boton-3d:hover .tapa-boton { top: 2px; }
+.boton-3d:active .tapa-boton { top: 4px; }
+
+
+.palanca-joystick {
+  position: relative;
+  width: 52px;
+  height: 46px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sombra-base {
+  position: absolute;
+  bottom: 2px;
+  width: 40px;
+  height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0) 70%);
+  z-index: 1;
+}
+
+.anillo-base {
+  position: absolute;
+  bottom: 5px;
+  width: 56px;
+  height: 21px;
+  background-color: #8c6916;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.cono-base {
+  position: absolute;
+  top: 1px;
+  left: 2px;
+  right: 2px;
+  bottom: 2px;
+  background-color: #849ca0;
+  border-radius: 50%;
+}
+
+.poste-palanca {
+  position: absolute;
+  width: 7px;
+  height: 18px;
+  bottom: 13px;
+  background-color: #1a2f34;
+  border-radius: 2px;
+  z-index: 3;
+}
+
+.bocha-palanca {
+  position: absolute;
+  width: 32px;
+  height: 18px;
+  bottom: 23px;
+  background: radial-gradient(ellipse at 38% 30%, #b23434 0%, #701c1c 100%);
+  border-radius: 50%;
+  z-index: 4;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.35);
+}
+
+/* ==========================================================================
+   SECCIÓN DESCRIPCIÓN
+   ========================================================================== */
+.seccion-descripcion {
+  max-width: 1800px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 48px 24px 32px 24px;   /* Buen aire superior e inferior */
+}
+
+.descripcion-encabezado {
+  display: flex;
+  gap: 28px;                      /* Distancia entre la miniatura y los textos */
+  align-items: flex-start;
+  margin-bottom: 36px;
+}
+
+.miniatura-juego {
+  width: 160px;                   /* Tamaño exacto de Figma */
+  height: 160px;
+  object-fit: cover;
+  flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+}
+
+.descripcion-titulo-bloque {
+  display: flex;
+  flex-direction: column;
+}
+
+.titulo-juego {
+  font-family: 'Silkscreen', monospace;
+  font-size: 47px;           /* Limpiado el valor duplicado previo */
+  font-weight: 400;          /* Regular exacto */
+  color: #0F3F50;
+  line-height: 1;            /* Reduce el aire extra vertical */
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin: 0 0 10px 0;         /* Espacio mínimo controlado hacia "GRATIS" */
+}
+
+.precio-juego {
+  font-family: 'DotGothic16', monospace;
+  color: #0b8b8b;
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  line-height: 1;
+  margin: 0 0 20px 0;        /* Espacio justo hacia los botones naranjas */
+}
+
+.descripcion-acciones {
+  display: flex;
+  align-items: center;
+  gap: 12px;    /* Separación cómoda entre ambos botones */
+  margin-bottom: 1px;             /* Deja respirar la sombra inferior */
+}
+
+.boton-circular {
+ width: 46px;
+  height: 46px;
+  border-radius: 16px;         /* Esquinas redondeadas tipo squircle */
+  border: none;
+  background-color: #ff9500;
+  color: #030000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  /* Sombra más profunda, más baja y más difusa (estilo Figma Drop Shadow) */
+  box-shadow: 0 8px 18px rgba(37, 18, 5, 0.32);
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+  padding: 0;
+  outline: none;
+  flex-shrink: 0;
+  overflow: hidden; /* Evita cualquier desborde fuera del redondeo */
+}
+
+
+.boton-circular:hover {
+  box-shadow: 0 0 0 4px #7cdbc4, 0 6px 12px rgba(0, 0, 0, 0.25);
+}
+
+.boton-circular:active {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Tamaño base de los SVGs dentro de los botones */
+
+.boton-circular svg {
+  width: 24px;
+  height: 22px;
+  display: block;
+}
+
+/* Borde negro exterior pixelado siempre fijo */
+.boton-favorito .corazon-borde {
+  fill: #000000;
+}
+
+/* Relleno interior: transparente por defecto */
+.boton-favorito .corazon-relleno {
+  fill: transparent;
+  transition: fill 0.15s ease;
+}
+
+/* Al hacer click: solo se tiñe el relleno de rojo, el borde queda intacto */
+.boton-favorito.activo .corazon-relleno {
+  fill: #e62222;
+}
+
+/* 2. Tamaño del icono compartir (calibrado a 20px para que respire adentro del botón) */
+.icono-compartir {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+.descripcion-contenido {
+  display: flex;
+  justify-content: space-between; /* Distribuye texto a la izquierda y video a la derecha */
+  align-items: flex-start;
+  gap: 18px;                      /* Distancia generosa entre texto y video */
+  /* CLAVE: 138px empuja el texto a la derecha alineándolo con el título (110px miniatura + 28px gap) */
+  padding-left: 60px;
+}
+
+/* Columna de texto: controlamos el ancho para que no haga oraciones largas */
+.descripcion-texto {
+  max-width: 800px;                /* CLAVE 1: Limita el largo de las oraciones */
+  font-family: 'Momo Trust Display', sans-serif;
+  font-size: 24px;                 /* CLAVE 2: Texto visiblemente más grande */
+  font-weight: 500;                /* CLAVE 3: Tipografía pesada/negrita como en Figma */
+  color: #333538;                  /* Tono oscuro con excelente contraste */
+  line-height: 1.45;               /* Interlineado cómodo */
+}
+
+/* Espacio vertical entre cada párrafo */
+.descripcion-texto p {
+  margin-bottom: 26px;
+}
+
+*/* ==========================================================================
+   REPRODUCTOR DE VIDEO
+   ========================================================================== */
+
+
+ .descripcion-video {
+  width: 480px;
+  max-width: 46%;
+  flex-shrink: 0;
+}
+
+/* Marco exterior amarillo con bordes redondeados */
+.video-tarjeta-figma {
+  background-color: #f7be73;
+  border-radius: 32px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.15);
+}
+
+/* Pantalla del video */
+.video-pantalla-contenedor {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: #0b3d52;
+}
+
+.video-imagen {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.video-overlay-oscuro {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+/* Botón Play central */
+.video-boton-play-figma {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  color: #ffffff;
+  font-size: 32px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 6px; /* Centra el triángulo visualmente */
+  transition: transform 0.2s ease;
+}
+
+.video-boton-play-figma:hover {
+  transform: translate(-50%, -50%) scale(1.1);
+}
+
+/* Barra de progreso de tiempo roja */
+.video-linea-tiempo {
+  position: relative;
+  width: calc(100% + 32px);
+  margin-left: -16px;
+  height: 5px;
+  background-color: #27211d;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.video-linea-progreso {
+  position: relative;
+  height: 100%;
+  width: 0%; /* Arranca en 0% y JS la va estirando */
+  background-color: #e5281e;
+}
+
+.video-indicador-punto {
+  position: absolute;
+  right: -5px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 12px;
+  background-color: #e5281e;
+  border-radius: 50%;
+}
+
+/* Zócalo inferior con las dos pastillas turquesas */
+.video-zocalo-controles {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 12px;
+}
+
+.capsula-control {
+  background: rgba(22, 126, 126, 0.55);
+  backdrop-filter: blur(4px);
+  border-radius: 999px;
+  padding: 6px 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.control-btn {
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 15px;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.control-btn:hover {
+  transform: scale(1.2);
+}
+
+/* Slider de volumen interactivo nativo */
+.control-slider-volumen {
+  width: 80px;
+  height: 4px;
+  accent-color: #ffffff; /* Pinta la bolita de blanco como en Figma */
+  cursor: pointer;
+}
+
+/* ==========================================================================
+   TARJETA GENERAL Y COMENTARIOS
+   ========================================================================== */
+.seccion-comunidad-recomendados {
+  max-width: 1350px;
+  width: 100%;
+  margin: 0 auto 0 40px;
+  padding: 30px 24px 60px 0px;
+  display: flex;
+  align-items: flex-start;
+  gap: 36px;
+  box-sizing: border-box;
+}
+
+.comunidad-columna {
+  flex: 1;
+  min-width: 0;
+
+}
+
+.tarjeta-comunidad-general {
+  position: relative;
+  background-color: #ffd899;
+  border-radius: 28px;
+  padding: 34px 36px 36px 42px;
+  overflow: hidden;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+}
+
+.comunidad-encabezado {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 22px;
+}
+
+.comunidad-titulo {
+  font-family: 'Silkscreen', monospace;
+  font-size: 36px;
+  color: #0b3d4a;
+  font-weight: 400;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.comunidad-mascota-badge {
+  height: 44px;
+  width: auto;              /* respeta la proporción original de la imagen */
+  flex-shrink: 0;           /* evita que se aplaste si el título es largo */
+  object-fit: contain;
+  opacity: 0.65;            /* transparencia: lo "apaga" */
+  filter: blur(0.6px);      /* desenfoque suave */
+  mix-blend-mode: multiply; /* se mezcla con el naranja de fondo */
+}
+
+.comunidad-formulario {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 26px;
+}
+
+.comunidad-input {
+  width: 100%;
+  min-height: 140px;
+  border: none;
+  border-radius: 18px;
+   padding: 16px 20px 56px 45px; /* espacio abajo para que el texto no pise el botón */
+  background-color: #f7ebd9;
+  font-family: 'Maven Pro', sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #2b221b;
+  resize: none;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.boton-arcade--enviar {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  height: 36px;
+  padding: 0 18px;
+  border-radius: 12px;
+  font-size: 10px;
+  box-shadow: 0 3px 0 #065451;
+}
+
+.boton-arcade--enviar:hover {
+  box-shadow: 0 5px 0 #065451;
+}
+
+.lista-comentarios {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.comentario {
+  display: flex;
+  gap: 18px;
+  background-color: #fbc67b;
+  border-radius: 22px;
+  padding: 18px 22px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.comentario__avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icono-avatar-silueta {
+  width: 34px;
+  height: 40px;
+  fill: #050000;
+}
+
+.avatar--teal    { background-color: var(--color-secundario)}
+.avatar--coral   { background-color: var(--color-acento) }
+.avatar--naranja { background-color: var(--sombra-primaria-3) }
+
+.comentario__cuerpo {
+  flex: 1;
+}
+
+.comentario__usuario {
+  font-family: 'Maven Pro', sans-serif;
+  font-weight: 800;
+  color: var(--color-parrafos);
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  margin: 0 0 6px 0;
+}
+
+.comentario__mensaje {
+  font-family: 'Maven Pro', sans-serif;
+  font-weight: 700;
+  color: var(--color-parrafos);
+  font-size: 1rem;
+  line-height: 1.45;
+  margin: 0 0 12px 0;
+}
+
+.comentario__acciones {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ==========================================================================
+   CARITAS INTERACTIVAS
+   ========================================================================== */
+.comentario__reaccion-circulo {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background-color: #fed89b;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  color: #3b322b;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.icono-reaccion {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+.reaccion-base {
+  fill: transparent;
+  stroke: currentColor;
+  stroke-width: 2;
+  transition: fill 0.15s ease;
+}
+
+.reaccion-expresion {
+  stroke: currentColor;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  fill: none;
+  transition: stroke 0.15s ease, fill 0.15s ease;
+}
+
+.comentario__reaccion-circulo:hover,
+.comentario__responder:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 0 3px #98e5d3, 0 3px 8px rgba(0, 0, 0, 0.18);
+}
+
+.comentario__reaccion-circulo.activo {
+  box-shadow: 0 0 0 3px #98e5d3, 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.comentario__reaccion-circulo.activo .reaccion-base {
+  fill: #3b322b;
+  stroke: #3b322b;
+}
+
+.comentario__reaccion-circulo.activo .reaccion-expresion {
+  stroke: #ffffff;
+}
+
+.comentario__reaccion-circulo.activo .reaccion-boca-rellena {
+  fill: #ffffff;
+}
+
+.comentario__responder {
+  background-color: #fed89b;
+  border: none;
+  border-radius: 999px;
+  padding: 6px 18px;
+  font-family: 'Maven Pro', sans-serif;
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: #4a3e35;
+  cursor: pointer;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* ==========================================================================
+   PARA SEGUIR JUGANDO (CARRUSEL VERTICAL)
+   ========================================================================== */
+.recomendados-columna {
+  width: 320px;
+  flex-shrink: 0;
+}
+
+.recomendados-titulo {
+  font-family: var(--fuente-categorias);
+  font-size: 30px;
+  color: var(--color-titulos);
+  letter-spacing: 2px;
+  text-align: center;
+  margin-bottom: 18px;
+  text-transform: uppercase;
+  line-height: 1.3;
+}
+
+.carrusel-vertical {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  
+
+}
+
+.carrusel-viewport {
+  --alto-tarjeta: 246px;   /* medí una tarjeta en DevTools y poné ese valor */
+  --gap-tarjetas: 20px;
+
+  max-width: 320px;
+  margin: 0 auto;
+  width: 100%;
+   height: calc(8px + 2 * (var(--alto-tarjeta) + var(--gap-tarjetas)) + var(--alto-tarjeta) / 2);
+  overflow-y: auto;
+  padding: 8px 6px;           /* aire para hover y sombras */
+  scroll-padding-top: 8px;    /* el snap respeta ese aire */
+  scroll-snap-type: y mandatory;
+  scrollbar-width: none;
+}
+
+.carrusel-viewport::-webkit-scrollbar { display: none; }
+
+.carrusel-pista {
+  display: flex;
+  flex-direction: column;
+  gap:  var(--gap-tarjetas);
+}
+/* ==========================================================================
+   TARJETAS DE JUEGO (Gratis vs Paga + Hover interactivo )
+   ========================================================================== */
+.juego-card {
+    flex-shrink: 0;
+    background-color: var(--color-primario);
+    border-radius: 35px;
+    overflow: hidden;
+    scroll-snap-align: start;
+}
+
+.juego-imagen-gratis, .juego-imagen-pago {
+    width: 100%;
+    height: 190px;
+    border-radius: 35px;
+    object-fit: cover;
+    display: block;
+    border: 3.5px solid transparent;
+    transition: border-color 0.3s ease-in-out;
+}
+
+.juego-imagen-gratis:hover{
+    border-color: var(--luz-secundaria-3);
+}
+
+.juego-imagen-pago:hover{
+    border-color: var(--color-acento);
+}
+
+.juego-info {
+    padding: 0.75rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.juego-texto{
+    min-width: 0;
+    flex: 1;
+}
+
+.juego-nombre {
+    font-family: var(--fuente-general);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-negro);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%; 
+}
+
+.juego-precio {
+    font-family: var(--fuente-general);
+    font-size: 0.8rem;
+    color: var(--color-acento);
+    font-weight: 700;
+}
+
+.juego-precio.gratis {
+    color: var(--color-secundario);
+}
+
+.btn-jugar, 
+.btn-agregar {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    gap: 0.3rem;
+    border: none;
+    border-radius: 20px;
+    padding: 0.4rem 0.8rem;
+    font-family: var(--fuente-general);
+    font-weight: 700;
+    font-size: 0.75rem;
+    cursor: pointer;
+    white-space: nowrap;
+    box-shadow: 0px 8px 6px rgba(0, 0, 0, 0.2);
+
+    transition: .5s, color .10s;
+}
+
+.btn-jugar {
+    background-color: var(--color-secundario);
+    color: var(--color-negro);
+}
+
+.btn-agregar {
+    background-color: var(--sombra-primaria-3);
+    color: var(--color-negro);
+}
+
+.btn-jugar:hover,
+.btn-agregar:hover {
+    transform: translatey(-15px);
+    color: var(--luz-primaria-1);
+}
+/* ==========================================================================
+   VENTANA MODAL DE COMPARTIR
+   ========================================================================== */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeInModal 0.25s ease forwards;
+}
+
+@keyframes fadeInModal {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.modal-tarjeta-compartir {
+  position: relative;
+  background-color: #ff4713;   /* Naranja rojizo arcade de Figma */
+  border-radius: 20px;
+  width: 640px;            /* El ancho de Figma */
+  max-width: 92vw;         /* Límite para que no desborde en pantallas menores */
+  padding: 50px 32px 42px;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+  border: 2px solid #000000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  animation: popModal 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* Botón cerrar: centrado arriba en el borde como en Figma */
+.boton-cerrar-modal {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.22);
+  border: 3px solid #ff4d12;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: background 0.15s ease;
+}
+
+.boton-cerrar-modal:hover {
+  background: rgba(0, 0, 0, 0.38);
+}
+
+.icono-cerrar {
+  width: 20px;
+  height: 20px;
+  fill: #ffffff;
+}
+
+/* Título en 2 renglones */
+.modal-titulo {
+  font-family: 'Silkscreen', monospace;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.45;
+  color: #ffffff;
+  letter-spacing: 1.2px;
+  /*margin: 16px 0 34px 0;*/
+  margin-bottom:28px;
+}
+
+/* Fuerza a cada span a ser un renglón propio sin partirse internamente */
+.linea-titulo {
+  display: block;
+  white-space: nowrap;
+}
+
+
+/* Fila de redes sociales */
+.redes-sociales {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  align-items: center;
+}
+
+.boton-red {
+  width: 48px;
+  height: 46px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.22);
+  transition: box-shadow 0.15s ease; /* Transición suave solo en la sombra */
+   cursor: pointer;
+}
+
+.boton-red:hover {
+  box-shadow: 0 0 0 4px #7cdbc4, 0 4px 8px rgba(0, 0, 0, 0.22);
+}
+
+/* Colores alternados del HTML nuevo */
+.red-teal {
+  background-color: #009ea0;
+}
+
+.red-amarilla {
+  background-color: #f7ba63;
+}
+
+/* Íconos SVG limpios */
+.icono-red {
+  max-width: 24px;
+  max-height: 24px;
+  width: auto;
+  height: auto;
+  color: #000000;
+  display: block;
+}
+
+.oculto {
+  display: none !important;
+}
+/* ==========================================================================
+   MODAL INSTRUCCIONES (Figma [source: 4])
+   ========================================================================== */
+.modal-tarjeta-instrucciones {
+  position: relative;
+  background-color: #009ea0;
+  border-radius: 28px;
+  width: 420px;
+  max-width: 90vw;
+  padding: 40px 28px 56px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  animation: popModal 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.modal-instrucciones-titulo {
+  font-family: 'Silkscreen', monospace;
+  font-size: 24px;
+  color: #0b2f33;
+  margin-bottom: 22px;
+  letter-spacing: 1px;
+}
+
+.modal-instrucciones-texto {
+  font-family: 'DotGothic16', monospace;
+  font-size: 19px;
+  line-height: 1.5;
+  color: #08282b;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Cruz centrada abajo */
+.boton-cerrar-inferior {
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #3b2c28;
+  border: 3px solid #009ea0;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.boton-cerrar-inferior:hover {
+  transform: translateX(-50%) scale(1.12);
+  background-color: #221815;
+}
+
+.boton-cerrar-inferior .icono-cerrar {
+  width: 20px;
+  height: 20px;
+  fill: #ffffff;
+}
+
+@keyframes popModal {
+  0% { transform: scale(0.85); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+
+/*-------------------FOOTER -------------------*/
+
+.footer-superior {
+    display: grid;
+    grid-template-columns: 1.2fr 2.4fr minmax(150px, 1.2fr);
+    gap: 2rem;
+    text-align: left;
+    align-items: start;
+    padding: 2rem 3rem 1rem 0.5rem; /*Valores top, right, bottom, left*/
+}
+
+.logo-imagen-footer{
+    width: 200px;
+    height: auto;
+}
+
+.logo-footer-fuente{
+    color: #FFFFFF;
+    font-size: 1.5rem;
+    font-weight: 400;
+}
+
+.footer-inferior {
+    background-color: #013230;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    width: 100%;
+    font-family: "Maven Pro", sans-serif;
+    font-style: normal;
+    font-size: 12px;
+    padding-top:1rem;
+    padding-bottom: 1rem;
+}
+
+.icono-facebook, .icono-youtube, .icono-x, .icono-instagram{
+    color: #FFFFFF;
+    width: 30px;
+    height: 30px;
+    gap: 1rem;
+}
+
+.iconos-redes-sociales{
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-self: start;
+}
+
+.footer-columna h4 {
+    font-size: 0.9rem;
+    margin-bottom: 0.2rem;
+    font-family: "Maven Pro", sans-serif;;
+}
+
+.footer-columna ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.footer-columna a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-family: "Maven Pro", sans-serif;
+}
+
+.footer-columna a:hover{
+    color: #333538;
+}
+
+.footer-newsletter {
+    background-color: #FBF3EA;
+    color: #333538;
+    border-radius: 12px;
+    padding: 1.5rem;
+    text-align: center;
+    position: relative;
+    margin-top: 1.5rem; /* deja espacio arriba para que el círculo no tape el borde */
+    box-shadow: 7px 6px 3px #333538;
+}
+
+#newsletter-fuente {
+    font-family: "Audiowide", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 25px;
+    padding-bottom: 1rem;
+}
+
+.newsletter-contenido-fuente, .newsletter-email-fuente{
+    font-family: "Maven Pro", sans-serif;
+    font-weight: 10;
+    color: #333538;
+}
+
+.newsletter-contenido-fuente{
+    font-size: 15px;
+    padding-bottom: 1rem;
+}
+
+.newsletter-email-fuente{
+    font-size: 10px;
+}
+
+.newsletter-icono {
+    position: absolute;
+    top: -1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 3rem;
+    height: 3rem;
+    background-color: #FFBF66;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.newsletter-icono svg {
+    width: 35px;
+    height: 35px;
+    color: #1c1c1c;
+}
+
+.iconos-redes-sociales svg{
+    transition: transform 0.25s ease;
+}
+
+.iconos-redes-sociales svg:hover{
+    transform: scale(1.25);
+}
+
+.footer-newsletter input {
+    width: 100%;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 10px;
+    background-color: #D9D9D9;
+    margin: 0.5rem 0 1rem;
+}
+
+.footer-newsletter button {
+    background-color: #FF4F0F;
+    color: #000000;
+    border: none;
+    padding: 0.6rem 1.5rem;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: "Nunito", sans-serif;
+    box-shadow: 2px 2px 8px #333538;
+}
+
+.footer-newsletter button{
+    box-shadow: 0 6px 0 #FF9500; /* "sombra" que simula el grosor del botón */
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.footer-newsletter button:hover { /*Animación estilo botón que se hunde*/
+    transform: translateY(6px);
+    box-shadow: 0 0px 0 #027570;
+}
+
+.links-fat-footer{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, auto);
+    grid-auto-flow: column;
+    gap: 2rem 2.5rem;
+}
+
+.logo-nombre-redes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0.5rem;
+    padding-top: 3rem;
+}

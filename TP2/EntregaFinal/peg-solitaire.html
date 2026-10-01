@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Peg Solitaire - Duckade</title>
+
+    <!-- Google Fonts con Momo Trust Display (Regular 400) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=DotGothic16&family=Maven+Pro:wght@400;600;700;800&family=Momo+Trust+Display&family=Nunito:wght@400;600;700;800&family=Press+Start+2P&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/peg-solitaire.css">
+    <link rel="icon" href="img/duckade_favicon.png">
+    <title>Peg Solitaire</title>
+  </head>
+
+  <body class="cuerpo-arcade">
+
+    <div class="contenedor-header">
+      <header>
+        <div class="header-izquierda">
+          <div>
+            <button class="menu-hamburguesa" aria-label="Abrir menú" id="menu-hamburguesa">
+              &#9776;
+            </button>
+            <nav class="menu-desplegable-container">
+              <ul class="menu-desplegable">
+                <li><a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                      <path
+                        d="M12 6H14V10H16V12H18V18H16V20H14V22H6V20H4V18H2V12H4V10H6V6H10V4H12V6ZM12 16H14V14H12V16ZM10 14H12V12H10V14ZM22 13H20V11H22V13ZM22 10H20V6H22V10ZM20 6H18V4H20V6ZM18 4H12V2H18V4Z" />
+                    </svg>
+                    Acción</a>
+                </li>
+                <li><a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M13 22h-2v-4H7v-2h2V4h2v12h2V4h2v12h2v2h-4v4Zm0-18h-2V2h2v2Z" />
+                    </svg>
+                    Aventura</a>
+                </li>
+                <li><a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                      <path
+                        d="M19 22H5v-2h14v2ZM5 20H3V10h2v10Zm16 0h-2V10h2v10ZM9 8h10v2H5V8h2V4h2v4Zm8-2h-2V4h2v2Zm-2-2H9V2h6v2Z" />
+                    </svg>
+                    Beat 'em Up</a>
+                </li>
+                <li><a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                      <path
+                        d="M10 15h4v-2h6v2h2v2h-2v2h-6v-2h-4v2H4v-2H2v-2h2v-2h6v2Zm-4 2h2v-2H6v2Zm10 0h2v-2h-2v2ZM2 15H0v-4h2v4Zm22 0h-2v-4h2v4ZM4 11H2V7h2v4Zm14-2h4v2H12V9h4V7h2v2Zm-6 0h-2V7H4V5h12v2h-4v2Z" />
+                    </svg>
+                    Carreras</a>
+                </li>
+                <li><a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                      <path
+                        d="M6 22H4v-4h2v4Zm16-2h-6v-2h6v2ZM8 18H6v-2h2v2Zm8-2H8v-2h8v2Zm-1-4H9v-2h6v2Zm-6-2H7V4h2v6Zm8 0h-2V4h2v6Zm-2-6H9V2h6v2Z" />
+                    </svg>
+                    De peleas</a>
+                </li>
+                <li><a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                      <path
+                        d="M15 22H9v-6h6v6Zm-4-2h2v-2h-2v2Zm-2-4H7v-2h2v2Zm8 0h-2v-2h2v2ZM7 14H5V8h2v6Zm12 0h-2V8h2v6ZM3 12H0v-2h3v2Zm21 0h-3v-2h3v2ZM9 8H7V6h2v2Zm8 0h-2V6h2v2ZM5 6H3V4h2v2Zm10 0H9V4h6v2Zm6 0h-2V4h2v2ZM3 4H1V2h2v2Zm20 0h-2V2h2v2ZM13 3h-2V0h2v3Z" />
+                    </svg>
+                    Estrategia</a>
+                </li>
+                <li><a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                      <path
+                        d="M14 22H12V20H14V22ZM20 22H18V20H20V22ZM5 19H9V21H3V15H5V19ZM18 20H16V18H18V20ZM22 20H20V18H22V20ZM11 19H9V16H11V19ZM20 18H18V16H20V18ZM13 16H11V13H13V16ZM8 15H5V13H8V15ZM11 13H8V11H11V13ZM15 13H13V11H15V13ZM21 13H19V11H21V13ZM4 12H2V10H4V12ZM13 11H11V9H13V11ZM17 11H15V9H17V11ZM15 9H13V7H15V9ZM19 9H17V7H19V9ZM6 8H4V6H6V8ZM17 7H15V5H17V7ZM21 7H19V5H17V3H21V7ZM4 6H2V4H4V6ZM8 6H6V4H8V6ZM13 5H11V3H13V5ZM6 4H4V2H6V4Z" />
+                    </svg>
+                    Exploración de mazmorras</a>
+                </li>
+                <li><a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                      <path
+                        d="M16 17h-3v2h2v2H9v-2h2v-2H8v-2h8v2Zm2-12h4v6h-2V7h-2v4h2v2h-2v2h-2V5H8v10H6v-2H4v-2h2V7H4v4H2V5h4V3h12v2Z" />
+                    </svg>
+                    Deportes</a>
+                </li>
+                <li><a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                      <path
+                        d="M9 22H7v-2h2v2Zm4 0h-2v-2h2v2Zm4 0h-2v-2h2v2ZM7 20H5v-4H3v-2h4v6Zm4 0H9v-4h2v4Zm4 0h-2v-4h2v4Zm6-4h-2v4h-2v-6h4v2ZM3 14H1V4h2v10Zm20 0h-2V4h2v10Zm-13-3H8V7h2v4Zm6 0h-2V7h2v4Zm5-7H3V2h18v2Z" />
+                    </svg>
+                    Horror</a>
+                </li>
+                <li><a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                      <path
+                        d="M2 22H0v-4h2v4Zm14 0h-2v-4h2v4Zm8 0h-2v-4h2v4ZM4 18H2v-2h2v2Zm10 0h-2v-2h2v2Zm8 0h-2v-2h2v2Zm-10-2H4v-2h8v2Zm8 0h-4v-2h4v2Zm-9-4H5v-2h6v2Zm8 0h-4v-2h4v2ZM5 10H3V4h2v6Zm8 0h-2V4h2v6Zm8 0h-2V4h2v6ZM11 4H5V2h6v2Zm8 0h-4V2h4v2Z" />
+                    </svg>
+                    Multijugador</a>
+                </li>
+                <li><a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                      <path
+                        d="M15 19h-2v4h-2v-4H9v-2h6v2Zm-6-2H7v-2h2v2Zm8 0h-2v-2h2v2ZM7 15H5v-2H1v-2h4V9h2v6Zm6 0h-2v-2h2v2Zm6-4h4v2h-4v2h-2V9h2v2Zm-8 2H9v-2h2v2Zm4 0h-2v-2h2v2Zm-2-2h-2V9h2v2ZM9 9H7V7h2v2Zm8 0h-2V7h2v2Zm-4-4h2v2H9V5h2V1h2v4Z" />
+                    </svg>
+                    Juegos de disparos</a>
+                </li>
+                <li><a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                      <path
+                        d="M2 3h9v2H2zM0 19h11v2H0zM13 3h9v2h-9zm0 16h11v2H13zM11 5h2v18h-2zM0 5h2v14H0zm22 0h2v14h-2zm-7 2h5v2h-5zm0 4h5v2h-5zm0 4h2v2h-2z" />
+                    </svg>
+                    Juegos de cartas</a>
+                </li>
+                <li><a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                      <path
+                        d="M4 8h4v4H4v4h4v4h4v-4h4v4h4v2H4v-2H2V4h2v4Zm16-4h2v16h-2v-4h-4v-4h4V8h-4V4h-4v4H8V4H4V2h16v2Zm-8 12H8v-4h4v4Zm4-4h-4V8h4v4Z" />
+                    </svg>
+                    Juegos de mesa</a>
+                </li>
+                <li><a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                      <path
+                        d="M4 18H2v-2h2v2Zm2-2H4v-2h2v2Zm8 0h-2v-2h2v2m-6-2H6v-2h2v2Zm4 0h-2v-2h2v2Zm4 0h-2v-2h2v2Zm6-8v8h-2v-4h-2V8h-4V6h8Zm-12 6H8v-2h2v2Zm8 0h-2v-2h2v2Z" />
+                    </svg>
+                    Juegos de plataformas</a>
+                </li>
+                <li><a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                      <path
+                        d="M18 22H6V20H18V22ZM6 20H4V18H6V20ZM20 20H18V18H20V20ZM10 16H12V18H10V19H8V10H10V16ZM4 18H2V6H4V18ZM22 18H20V6H22V18ZM14 16H12V14H14V16ZM16 14H14V8H12V6H14V5H16V14ZM13 13H11V11H13V13ZM12 10H10V8H12V10ZM6 6H4V4H6V6ZM20 6H18V4H20V6ZM18 4H6V2H18V4Z" />
+                    </svg>
+                    Laberinto</a>
+                </li>
+                <li><a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                      <path
+                        d="M13 22h-2v-2H3v-2h2v-2h2v2h10v-2h2v2h2v2h-8v2Zm-4-6H7v-2h2v2Zm8 0h-2v-2h2v2ZM7 14H5v-2h2v2Zm12 0h-2v-2h2v2ZM9 12H7v-2h2v2Zm8 0h-2v-2h2v2Zm-6-2H9V8h2v2Zm4 0h-2V8h2v2ZM9 8H7V6h2v2Zm8 0h-2V6h2v2Zm-6-2H9V4h2v2Zm4 0h-2V4h2v2Zm-2-2h-2V2h2v2Z" />
+                    </svg>
+                    Simulación</a>
+                </li>
+                <li><a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                      <path
+                        d="M17 9h-2v13h-2v-6h-2v6H9V9H7V7h10v2Zm-6 5h2V9h-2v5ZM7 7H5V5h2v2Zm12 0h-2V5h2v2Zm-5-1h-4V2h4v4ZM5 5H3V3h2v2Zm16 0h-2V3h2v2Z" />
+                    </svg>
+                    RPG</a>
+                </li>
+                <li><a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                      <path
+                        d="M15 22h-2v-2h-2v-2h2V6h-2V4h2V2h2v20Zm-4-4H9v-2h2v2ZM9 8v2H7v4h2v2H5V8h4Zm10 6h-2v-4h2v4Zm-8-6H9V6h2v2Z" />
+                    </svg>
+                    Sigilo</a>
+                </li>
+                <li><a href="#">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                      <path
+                        d="M5 19h4v-2h2v2h2v-2h2v2h4v-2h2v2h2v2H1v-2h2v-2h2v2Zm2-2H5v-3h2v3Zm6 0h-2v-2h2v2Zm6 0h-2v-3h2v3ZM9 14H7v-3h2v3Zm8 0h-2v-3h2v3Zm-6-3H9V8h2v3Zm4 0h-2V8h2v3Zm-2-3h-2V5h2v3Zm-2-3H9V3h2v2Zm4 0h-2V3h2v2Z" />
+                    </svg>
+                    Supervivencia</a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+
+          <div class="menu-navegacion">
+            <nav>
+              <ul>
+                <li><a href="#">Novedades</a></li>
+                <li><a href="#">Comunidad</a></li>
+                <li><a href="#">Tienda</a></li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+
+        <div class="logo">
+          <p class="logo-fuente">Duckade</p>
+          <img class="logo-imagen-header" src="img/Duckling_games.png" alt="Duckade Logo">
+        </div>
+
+        <div class="iconos-usuario-carrito">
+          <div class="panel-izquierdo">
+            <button type="button" class="icono-carrito icono-btn" aria-label="Carrito" aria-expanded="false"
+              aria-controls="menu-carrito">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M9 22H6v-3h3v3Zm11 0h-3v-3h3v3Zm-2-4H8v-2h10v2ZM8 16H6v-4h2v4Zm12 0h-2v-4h2v4ZM6 6h16v6h-2V8H6v4H4V4H2V2h4v4Z" />
+              </svg>
+              <span class="badge-carrito">2</span>
+            </button>
+
+            <div class="panel-desplegable" id="menu-carrito">
+              <p class="panel-titulo">Mi carrito</p>
+              <ul class="panel-lista">
+                <li><span>Rayman</span><span>USD $11,50</span></li>
+                <li><span>Bomberman</span><span>USD $14,99</span></li>
+              </ul>
+              <div class="panel-total"><span>Total</span><span>USD $26,49</span></div>
+              <button type="button" class="btn-pagar">Realizar pago</button>
+            </div>
+          </div>
+
+          <div class="panel-izquierdo">
+            <button type="button" class="icono-usuario icono-btn" aria-label="Usuario" aria-expanded="false"
+              aria-controls="menu-usuario">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M6 22H4v-4h2v4Zm14 0h-2v-4h2v4ZM8 18H6v-2h2v2Zm10 0h-2v-2h2v2m-2-2H8v-2h8v2Zm-1-4H9v-2h6v2Zm-6-2H7V4h2v6Zm8 0h-2V4h2v6Zm-2-6H9V2h6v2Z" />
+              </svg>
+            </button>
+
+            <div class="panel-desplegable" id="menu-usuario">
+              <a href="login.html">Iniciar sesión</a>
+              <a href="#">Mi biblioteca</a>
+              <a href="#">Lista de deseados</a>
+              <a href="#">Configuración</a>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- BREADCRUMB BAR -->
+      <div class="breadcrumb-bar">
+        <nav class="breadcrumb" aria-label="Ruta de navegación">
+          <a href="index.html" class="breadcrumb__link">Inicio</a>
+          <span class="breadcrumb__separator">&gt;&gt;</span>
+          <a href="#" class="breadcrumb__link">Juegos de mesa</a>
+          <span class="breadcrumb__separator">&gt;&gt;</span>
+          <span class="breadcrumb__current">Peg Solitaire - Ocean Edition</span>
+        </nav>
+
+        <div class="search-box">
+          <input type="text" placeholder="Buscar en la tienda" class="search-input">
+          <button class="search-button" aria-label="Buscar">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M9 2a7 7 0 1 0 4.3 12.5l5.1 5.1 1.4-1.4-5.1-5.1A7 7 0 0 0 9 2zm0 2a5 5 0 1 1 0 10A5 5 0 0 1 9 4z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+    </div>
+    <!-- CONTENEDOR PRINCIPAL: LA CONSOLA RETRO -->
+    <main class="contenedor-principal">
+
+      <section class="consola-arcade">
+
+        <!-- MARCO TELEVISOR (Mueble arcade gris) -->
+        <div class="marco-televisor">
+          <!-- 4 Tornillos oscuros -->
+          <span class="tornillo tornillo-arriba-izq"></span>
+          <span class="tornillo tornillo-arriba-der"></span>
+          <span class="tornillo tornillo-abajo-izq"></span>
+          <span class="tornillo tornillo-abajo-der"></span>
+
+          <!-- PANTALLA SUBMARINA (Solo contiene la imagen y el botón A JUGAR) -->
+          <div id="pantalla-juego" class="pantalla-televisor">
+            <img src="img/Miniaturas_cards/peg_ocean_triptico.png" alt="Gameplay Peg Solitaire" class="imagen-juego-pantalla">
+
+            <div id="capa-inicio" class="capa-inicio">
+              <button id="boton-jugar" class="btn-jugar-consola">A JUGAR!</button>
+            </div>
+
+            <div class="herramientas">
+              <button id="boton-video" class="boton-utilidad" title="Video explicativo">▶</button>
+              <button id="boton-reiniciar" class="boton-utilidad" title="Refrescar">↻</button>
+              <button id="boton-pantalla-completa" class="boton-utilidad" title="Pantalla completa">⛶</button>
+            </div>
+          </div>
+        </div>
+        <!-- PANEL LATERAL DE CONTROLES -->
+        <aside class="panel-lateral">
+          <div class="botonera-lateral">
+            <a href="index.html" class="boton-arcade">VOLVER A INICIO</a>
+            <button class="boton-arcade">AGREGAR A<br>MI BIBLIOTECA</button>
+            <button id="boton-instrucciones" class="boton-arcade">INSTRUCCIONES</button>
+            <button id="boton-compartir" class="boton-arcade">COMPARTIR</button>
+          </div>
+
+          <!-- Mando estilo retro abajo de todo -->
+          <div class="mando-arcade">
+            <div class="botones-mando">
+              <button class="boton-3d boton-amarillo" aria-label="Botón amarillo"><span
+                  class="tapa-boton"></span></button>
+              <button class="boton-3d boton-celeste" aria-label="Botón celeste"><span
+                  class="tapa-boton"></span></button>
+              <button class="boton-3d boton-naranja" aria-label="Botón naranja"><span
+                  class="tapa-boton"></span></button>
+            </div>
+            <div class="palanca-joystick">
+              <div class="anillo-base">
+                <div class="cono-base"></div>
+              </div>
+              <div class="poste-palanca"></div>
+              <div class="bocha-palanca"></div>
+            </div>
+          </div>
+
+        </aside>
+
+      </section>
+      <!-- SECCIÓN DESCRIPCIÓN DEL JUEGO -->
+      <section class="seccion-descripcion">
+
+        <div class="descripcion-encabezado">
+          <img src="img/Miniaturas_cards/peg_ocean_miniatura.png" alt="Miniatura Peg Solitaire Ocean Edition" class="miniatura-juego">
+          <div class="descripcion-titulo-bloque">
+            <h1 class="titulo-juego">PEG SOLITAIRE — OCEAN EDITION</h1>
+            <p class="precio-juego">GRATIS</p>
+            <div class="descripcion-acciones">
+              <button class="boton-circular boton-favorito" id="btn-favorito" aria-label="Favorito">
+                <svg class="icono-pixel-corazon" viewBox="0 0 11 10" width="22" height="20">
+                  <!-- 1. Borde exterior pixelado negro fijo -->
+                  <path class="corazon-borde" fill="#000000"
+                    d="M2 0h2v1H2z M7 0h2v1H7z M1 1h1v1H1z M4 1h1v1H4z M6 1h1v1H6z M9 1h1v1H9z M0 2h1v3H0z M10 2h1v3h-1z M1 5h1v1H1z M9 5h1v1H9z M2 6h1v1H2z M8 6h1v1H8z M3 7h1v1H3z M7 7h1v1H7z M4 8h1v1H4z M6 8h1v1H6z M5 9h1v1H5z" />
+
+                  <!-- 2. Relleno interior (cambia a rojo con CSS al hacer click) -->
+                  <path class="corazon-relleno" fill="transparent"
+                    d="M2 1h2v1H2z M7 1h2v1H7z M1 2h9v3H1z M2 5h7v1H2z M3 6h5v1H3z M4 7h3v1H4z M5 8h1v1H5z" />
+                </svg>
+              </button>
+
+              <button class="boton-circular boton-compartir" id="btn-compartir" aria-label="Compartir">
+                <svg class="icono-compartir" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M8.6 11.2667L17.4 6.73333M8.6 14.7333L17.4 19.2667M1 13C1 14.0609 1.42143 15.0783 2.17157 15.8284C2.92172 16.5786 3.93913 17 5 17C6.06087 17 7.07828 16.5786 7.82843 15.8284C8.57857 15.0783 9 14.0609 9 13C9 11.9391 8.57857 10.9217 7.82843 10.1716C7.07828 9.42143 6.06087 9 5 9C3.93913 9 2.92172 9.42143 2.17157 10.1716C1.42143 10.9217 1 11.9391 1 13ZM17 5C17 6.06087 17.4214 7.07828 18.1716 7.82843C18.9217 8.57857 19.9391 9 21 9C22.0609 9 23.0783 8.57857 23.8284 7.82843C24.5786 7.07828 25 6.06087 25 5C25 3.93913 24.5786 2.92172 23.8284 2.17157C23.0783 1.42143 22.0609 1 21 1C19.9391 1 18.9217 1.42143 18.1716 2.17157C17.4214 2.92172 17 3.93913 17 5ZM17 21C17 22.0609 17.4214 23.0783 18.1716 23.8284C18.9217 24.5786 19.9391 25 21 25C22.0609 25 23.0783 24.5786 23.8284 23.8284C24.5786 23.0783 25 22.0609 25 21C25 19.9391 24.5786 18.9217 23.8284 18.1716C23.0783 17.4214 22.0609 17 21 17C19.9391 17 18.9217 17.4214 18.1716 18.1716C17.4214 18.9217 17 19.9391 17 21Z"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="descripcion-contenido">
+          <div class="descripcion-texto">
+            <p>¡Bienvenido a burbujas arcade! Esta es una versión temática del clásico juego Peg Solitaire, ambientada
+              en un universo de máquinas arcade.</p>
+            <p>El objetivo del juego consiste en eliminar las burbujas del tablero realizando movimientos estratégicos,
+              siguiendo las reglas tradicionales del Peg Solitaire.</p>
+            <p>El jugador deberá planificar sus movimientos para conseguir eliminar la mayor cantidad de burbujas
+              posible y alcanzar el objetivo final de dejar una única burbuja en el tablero.</p>
+            <p>¡Pensá bien cada movimiento! Una jugada incorrecta puede dejarte sin movimientos posibles. ¿Podrás
+              superar el desafío y convertirte en el campeón del arcade?</p>
+          </div>
+
+          <div class="descripcion-video">
+            <div class="video-tarjeta-figma">
+
+              <!-- Pantalla del video -->
+              <div class="video-pantalla-contenedor">
+                <video id="video-elemento" class="video-imagen" poster="img/Miniaturas_cards/peg_ocean.png" playsinline>
+                  <source src="img/gameplay.mp4" type="video/mp4">
+                </video>
+                <div class="video-overlay-oscuro" id="video-overlay"></div>
+
+                <!-- Botón Play grande central -->
+                <button class="video-boton-play-figma" id="video-boton-play" aria-label="Reproducir video">
+                  ▶
+                </button>
+              </div>
+
+              <!-- Línea roja de progreso del video -->
+              <div class="video-linea-tiempo" id="video-barra-progreso">
+                <div class="video-linea-progreso" id="video-progreso-relleno">
+                  <span class="video-indicador-punto"></span>
+                </div>
+              </div>
+
+              <!-- Zócalo de controles simplificado -->
+              <div class="video-zocalo-controles">
+
+                <!-- Cápsula Izquierda: Play, Mute y Control de Volumen Real -->
+                <div class="capsula-control capsula-izquierda">
+                  <button class="control-btn" id="video-play-chico" aria-label="Play / Pausa">▶</button>
+                  <button class="control-btn" id="video-mute" aria-label="Silenciar">🔊</button>
+                  <!-- Input de rango nativo para el volumen (0 a 1) -->
+                  <input type="range" id="video-volumen" min="0" max="1" step="0.05" value="1"
+                    class="control-slider-volumen">
+                </div>
+
+                <!-- Cápsula Derecha: Solo Reiniciar y Compartir -->
+                <div class="capsula-control capsula-derecha">
+                  <button class="control-btn" id="video-reiniciar" title="Reiniciar video">↻</button>
+                  <button class="control-btn" id="video-compartir" title="Compartir">⤴</button>
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+          </div>
+      </section>
+
+      <!-- SECCIÓN COMUNIDAD + PARA SEGUIR JUGANDO -->
+      <section class="seccion-comunidad-recomendados">
+
+        <!-- COLUMNA IZQUIERDA: COMUNIDAD -->
+        <div class="comunidad-columna">
+          <div class="tarjeta-comunidad-general">
+
+
+            <div class="comunidad-encabezado">
+              <h2 class="comunidad-titulo">NUESTRA COMUNIDAD</h2>
+              <img src="img/duck.png" alt="" class="comunidad-mascota-badge">
+            </div>
+
+            <form class="comunidad-formulario" id="formulario-comentario">
+              <textarea class="comunidad-input" id="input-comentario" placeholder="Deja tu comentario..."
+                rows="2"></textarea>
+              <button type="submit" class="boton-arcade boton-arcade--enviar">COMENTAR</button>
+            </form>
+
+            <div class="lista-comentarios" id="lista-comentarios">
+
+              <!-- Comentario 1 -->
+              <article class="comentario">
+                <div class="comentario__avatar avatar--teal">
+                  <svg viewBox="0 0 24 24" class="icono-avatar-silueta">
+                    <path
+                      d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                  </svg>
+                </div>
+                <div class="comentario__cuerpo">
+                  <p class="comentario__usuario">PACORAUL_34 DICE:</p>
+                  <p class="comentario__mensaje">Lo jugué con mi sobrina, no entendimos nada, ¡muy divertido!</p>
+                  <div class="comentario__acciones">
+                    <button type="button" class="comentario__reaccion-circulo" aria-label="Me gusta">
+                      <svg class="icono-reaccion" viewBox="0 0 22 22">
+                        <path class="reaccion-base" d="M1 11a10 10 0 1 0 20 0 10 10 0 0 0-20 0Z" />
+                        <path class="reaccion-expresion" d="M7.67 7.67h.01M14.33 7.67h.01" />
+                        <path class="reaccion-expresion reaccion-boca-rellena"
+                          d="M6.56 12.11c0 1.18.46 2.31 1.3 3.14.83.84 1.96 1.3 3.14 1.3s2.31-.46 3.14-1.3c.84-.83 1.3-1.96 1.3-3.14H6.56Z" />
+                      </svg>
+                    </button>
+                    <button type="button" class="comentario__reaccion-circulo" aria-label="No me gusta">
+                      <svg class="icono-reaccion" viewBox="0 0 22 22">
+                        <path class="reaccion-base" d="M1 11a10 10 0 1 0 20 0 10 10 0 0 0-20 0Z" />
+                        <path class="reaccion-expresion" d="M7.67 8.78h.01M14.33 8.78h.01" />
+                        <path class="reaccion-expresion" d="M8.22 14.61a3.87 3.87 0 0 1 5.56 0" />
+                      </svg>
+                    </button>
+                    <button type="button" class="comentario__responder">responder</button>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Comentario 2 -->
+              <article class="comentario">
+                <div class="comentario__avatar avatar--coral">
+                  <svg viewBox="0 0 24 24" class="icono-avatar-silueta">
+                    <path
+                      d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                  </svg>
+                </div>
+                <div class="comentario__cuerpo">
+                  <p class="comentario__usuario">SABRI_CARP99 DICE:</p>
+                  <p class="comentario__mensaje">¡Todo ok!</p>
+                  <div class="comentario__acciones">
+                    <button type="button" class="comentario__reaccion-circulo" aria-label="Me gusta">
+                      <svg class="icono-reaccion" viewBox="0 0 22 22">
+                        <path class="reaccion-base" d="M1 11a10 10 0 1 0 20 0 10 10 0 0 0-20 0Z" />
+                        <path class="reaccion-expresion" d="M7.67 7.67h.01M14.33 7.67h.01" />
+                        <path class="reaccion-expresion reaccion-boca-rellena"
+                          d="M6.56 12.11c0 1.18.46 2.31 1.3 3.14.83.84 1.96 1.3 3.14 1.3s2.31-.46 3.14-1.3c.84-.83 1.3-1.96 1.3-3.14H6.56Z" />
+                      </svg>
+                    </button>
+                    <button type="button" class="comentario__reaccion-circulo" aria-label="No me gusta">
+                      <svg class="icono-reaccion" viewBox="0 0 22 22">
+                        <path class="reaccion-base" d="M1 11a10 10 0 1 0 20 0 10 10 0 0 0-20 0Z" />
+                        <path class="reaccion-expresion" d="M7.67 8.78h.01M14.33 8.78h.01" />
+                        <path class="reaccion-expresion" d="M8.22 14.61a3.87 3.87 0 0 1 5.56 0" />
+                      </svg>
+                    </button>
+                    <button type="button" class="comentario__responder">responder</button>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Comentario 3 -->
+              <article class="comentario">
+                <div class="comentario__avatar avatar--naranja">
+                  <svg viewBox="0 0 24 24" class="icono-avatar-silueta">
+                    <path
+                      d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                  </svg>
+                </div>
+                <div class="comentario__cuerpo">
+                  <p class="comentario__usuario">FCSAPP1 DICE:</p>
+                  <p class="comentario__mensaje">Me costó bastante entender la mecánica al principio, pero después
+                    agarré la mano.</p>
+                  <div class="comentario__acciones">
+                    <button type="button" class="comentario__reaccion-circulo" aria-label="Me gusta">
+                      <svg class="icono-reaccion" viewBox="0 0 22 22">
+                        <path class="reaccion-base" d="M1 11a10 10 0 1 0 20 0 10 10 0 0 0-20 0Z" />
+                        <path class="reaccion-expresion" d="M7.67 7.67h.01M14.33 7.67h.01" />
+                        <path class="reaccion-expresion reaccion-boca-rellena"
+                          d="M6.56 12.11c0 1.18.46 2.31 1.3 3.14.83.84 1.96 1.3 3.14 1.3s2.31-.46 3.14-1.3c.84-.83 1.3-1.96 1.3-3.14H6.56Z" />
+                      </svg>
+                    </button>
+                    <button type="button" class="comentario__reaccion-circulo" aria-label="No me gusta">
+                      <svg class="icono-reaccion" viewBox="0 0 22 22">
+                        <path class="reaccion-base" d="M1 11a10 10 0 1 0 20 0 10 10 0 0 0-20 0Z" />
+                        <path class="reaccion-expresion" d="M7.67 8.78h.01M14.33 8.78h.01" />
+                        <path class="reaccion-expresion" d="M8.22 14.61a3.87 3.87 0 0 1 5.56 0" />
+                      </svg>
+                    </button>
+                    <button type="button" class="comentario__responder">responder</button>
+                  </div>
+                </div>
+              </article>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- COLUMNA DERECHA: RECOMENDADOS -->
+        <aside class="recomendados-columna">
+          <h2 class="recomendados-titulo">PARA SEGUIR JUGANDO</h2>
+            <div class="carrusel-vertical">
+      <div class="carrusel-viewport" id="carrusel-viewport" tabindex="0" role="region" aria-label="Juegos recomendados">
+        <div class="carrusel-pista">
+
+          <!-- 1. Monopoly (pago) -->
+          <div class="juego-card">
+            <img src="img/Miniaturas_cards/monopoly.png" alt="Monopoly" class="juego-imagen-pago">
+            <div class="juego-info">
+              <div class="juego-texto">
+                <p class="juego-nombre">Monopoly</p>
+                <p class="juego-precio">USD $11,50</p>
+              </div>
+              <button class="btn-agregar">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" width="16" height="16">
+                  <path d="M9 22H6v-3h3v3Zm11 0h-3v-3h3v3Zm-2-4H8v-2h10v2ZM8 16H6v-4h2v4Zm12 0h-2v-4h2v4ZM6 6h16v6h-2V8H6v4H4V4H2V2h4v4Z" />
+                </svg>
+                AGREGAR
+              </button>
+            </div>
+          </div>
+
+          <!-- 2. Addams Family (gratis) -->
+          <div class="juego-card">
+            <img src="img/Miniaturas_cards/gameboy-game-Addams Family, The (USA).png" alt="Addams Family" class="juego-imagen-gratis">
+            <div class="juego-info">
+              <div class="juego-texto">
+                <p class="juego-nombre">Addams Family</p>
+                <p class="juego-precio gratis">GRATIS</p>
+              </div>
+              <button class="btn-jugar">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" width="16" height="16">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+                JUGAR
+              </button>
+            </div>
+          </div>
+
+          <!-- 3. Tom and Jerry (pago) -->
+          <div class="juego-card">
+            <img src="img/Miniaturas_cards/gameboy-color-game-Tom and Jerry in Mouse Attacks! (Europe) (En,Fr,De,Es,It,Nl,Da).png" alt="Tom and Jerry in Mouse Attacks" class="juego-imagen-pago">
+            <div class="juego-info">
+              <div class="juego-texto">
+                <p class="juego-nombre">Tom and Jerry in Mouse Attacks</p>
+                <p class="juego-precio">USD $14,99</p>
+              </div>
+              <button class="btn-agregar">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" width="16" height="16">
+                  <path d="M9 22H6v-3h3v3Zm11 0h-3v-3h3v3Zm-2-4H8v-2h10v2ZM8 16H6v-4h2v4Zm12 0h-2v-4h2v4ZM6 6h16v6h-2V8H6v4H4V4H2V2h4v4Z" />
+                </svg>
+                AGREGAR
+              </button>
+            </div>
+          </div>
+
+          <!-- 4. Peter Pan (gratis) -->
+          <div class="juego-card">
+            <img src="img/Miniaturas_cards/game-boy-advance-game-Peter Pan - Return to Neverland (E)(Lightforce).png" alt="Peter Pan in Return to Never Land" class="juego-imagen-gratis">
+            <div class="juego-info">
+              <div class="juego-texto">
+                <p class="juego-nombre">Peter Pan in Return to Never Land</p>
+                <p class="juego-precio gratis">GRATIS</p>
+              </div>
+              <button class="btn-jugar">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" width="16" height="16">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+                JUGAR
+              </button>
+            </div>
+          </div>
+
+          <!-- 5. Dr. Franken (pago) -->
+          <div class="juego-card">
+            <img src="img/Miniaturas_cards/snes-game-Adventures of Dr. Franken, The (USA).png" alt="The Adventures of Dr. Franken" class="juego-imagen-pago">
+            <div class="juego-info">
+              <div class="juego-texto">
+                <p class="juego-nombre">The Adventures of Dr. Franken</p>
+                <p class="juego-precio">USD $4,99</p>
+              </div>
+              <button class="btn-agregar">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" width="16" height="16">
+                  <path d="M9 22H6v-3h3v3Zm11 0h-3v-3h3v3Zm-2-4H8v-2h10v2ZM8 16H6v-4h2v4Zm12 0h-2v-4h2v4ZM6 6h16v6h-2V8H6v4H4V4H2V2h4v4Z" />
+                </svg>
+                AGREGAR
+              </button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+
+      </section>
+
+      <!-- VENTANA MODAL COMPARTIR -->
+      <div class="modal-overlay oculto" id="modal-compartir">
+        <div class="modal-tarjeta-compartir">
+          <!-- Botón Cerrar (Cruz superior) -->
+          <button class="boton-cerrar-modal" id="btn-cerrar-modal" aria-label="Cerrar ventana">
+            <svg viewBox="0 0 24 24" class="icono-cerrar">
+              <path
+                d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" />
+            </svg>
+          </button>
+
+          <!-- Título en 2 renglones -->
+          <h2 class="modal-titulo">
+            <span class="linea-titulo">¡ELIGE UNA RED SOCIAL Y COMPARTE</span>
+            <span class="linea-titulo">LA DIVERSIÓN CON TUS AMIGOS!</span>
+          </h2>
+
+          <!-- Botonera de Redes Sociales -->
+          <div class="redes-sociales">
+
+            <!-- 1. X (Twitter) -->
+            <a href="#" class="boton-red red-teal" aria-label="X">
+              <svg viewBox="0 0 31 29" class="icono-red" fill="currentColor">
+                <path
+                  d="M10.7001 0C10.8743 9.02205e-05 11.0466 0.0444479 11.2063 0.130326C11.3661 0.216203 11.5099 0.341772 11.6288 0.499253L11.7255 0.644146L17.1631 9.82284L24.7279 0.461454C24.9569 0.178994 25.2641 0.0150036 25.5872 0.00279066C25.9103 -0.00942228 26.225 0.131058 26.4674 0.395699C26.7099 0.66034 26.8619 1.0293 26.8925 1.42763C26.9232 1.82597 26.8302 2.22381 26.6325 2.54036L26.5269 2.68841L18.686 12.3931L26.6528 25.843C26.7848 26.0659 26.867 26.3278 26.8913 26.6025C26.9156 26.8772 26.881 27.1549 26.7912 27.4078C26.7013 27.6608 26.5593 27.88 26.3794 28.0435C26.1994 28.207 25.9879 28.309 25.7661 28.3393L25.6274 28.3487H20.1987C20.0245 28.3486 19.8523 28.3043 19.6925 28.2184C19.5327 28.1325 19.3889 28.007 19.27 27.8495L19.1733 27.7046L13.7331 18.5243L6.1709 27.8873C5.94195 28.1697 5.63473 28.3337 5.31165 28.3459C4.98856 28.3582 4.67383 28.2177 4.43138 27.953C4.18894 27.6884 4.03695 27.3194 4.0063 26.9211C3.97565 26.5228 4.06862 26.1249 4.26635 25.8084L4.37194 25.6603L12.2103 15.954L4.24599 2.50571C4.11407 2.28283 4.03184 2.02091 4.00755 1.74624C3.98327 1.47158 4.01778 1.19383 4.10763 0.940903C4.19748 0.687972 4.3395 0.468754 4.51944 0.305259C4.69937 0.141764 4.91089 0.0397466 5.13275 0.00944965L5.27142 0H10.7001Z" />
+              </svg>
+            </a>
+
+            <!-- 2. WhatsApp -->
+            <a href="#" class="boton-red red-amarilla" aria-label="WhatsApp">
+              <svg viewBox="0 0 33 25" class="icono-red" fill="currentColor">
+                <path
+                  d="M25.071 3.60285C23.9345 2.45653 22.5809 1.54761 21.0892 0.929067C19.5975 0.310523 17.9974 -0.0052781 16.3823 6.67259e-05C9.6148 6.67259e-05 4.09916 5.50947 4.09916 12.2693C4.09916 14.436 4.66931 16.5407 5.73526 18.3978L4 24.7614L10.5072 23.0529C12.3044 24.031 14.3248 24.551 16.3823 24.551C23.1498 24.551 28.6655 19.0416 28.6655 12.2817C28.6655 9.00083 27.3888 5.91804 25.071 3.60285ZM16.3823 22.471C14.5479 22.471 12.7507 21.9758 11.1765 21.0472L10.8047 20.8244L6.93754 21.8396L7.9663 18.0759L7.71841 17.6921C6.699 16.0666 6.15782 14.1874 6.15668 12.2693C6.15668 6.6485 10.7427 2.06764 16.3699 2.06764C19.0967 2.06764 21.6624 3.13238 23.5836 5.06377C24.5351 6.00949 25.289 7.13449 25.8018 8.37354C26.3146 9.61258 26.5759 10.941 26.5707 12.2817C26.5955 17.9025 22.0095 22.471 16.3823 22.471ZM21.9847 14.8445C21.6748 14.6959 20.1627 13.9531 19.89 13.8417C19.6049 13.7426 19.4066 13.6931 19.1959 13.9902C18.9852 14.2998 18.4026 14.9931 18.2291 15.1912C18.0556 15.4016 17.8697 15.4264 17.5598 15.2655C17.2499 15.1169 16.2584 14.7826 15.0933 13.7426C14.176 12.9255 13.5687 11.9227 13.3828 11.6132C13.2093 11.3036 13.358 11.1427 13.5191 10.9817C13.6555 10.8456 13.829 10.6227 13.9777 10.4494C14.1265 10.276 14.1884 10.1399 14.2876 9.94176C14.3868 9.73129 14.3372 9.55796 14.2628 9.40939C14.1884 9.26082 13.5687 7.75038 13.3208 7.13135C13.0729 6.53707 12.8126 6.61136 12.6267 6.59898H12.0318C11.8211 6.59898 11.4988 6.67326 11.2137 6.98278C10.941 7.29229 10.1478 8.03514 10.1478 9.54558C10.1478 11.056 11.2509 12.5169 11.3996 12.715C11.5484 12.9255 13.5687 16.0207 16.6426 17.3454C17.3739 17.6673 17.944 17.853 18.3902 17.9892C19.1215 18.2244 19.7908 18.1873 20.3238 18.113C20.9188 18.0264 22.1458 17.3702 22.3937 16.6521C22.654 15.934 22.654 15.3274 22.5673 15.1912C22.4805 15.055 22.2946 14.9931 21.9847 14.8445Z" />
+              </svg>
+            </a>
+
+            <!-- 3. Mail / Mensaje -->
+            <a href="#" class="boton-red red-teal" aria-label="Email">
+              <svg viewBox="0 0 32 32" class="icono-red" fill="currentColor">
+                <path
+                  d="M8.00008 10.6667H10.6667V13.3334H8.00008V10.6667ZM10.6667 13.3334H13.3334V16H10.6667V13.3334ZM24.0001 10.6667H21.3334V13.3334H24.0001V10.6667ZM21.3334 13.3334H18.6667V16H21.3334V13.3334ZM13.3334 16H18.6667V18.6667H13.3334V16ZM2.66675 8.00004H5.33341V24H2.66675V8.00004ZM26.6667 8.00004H29.3334V24H26.6667V8.00004ZM5.33341 5.33337H26.6667V8.00004H5.33341V5.33337ZM5.33341 24H26.6667V26.6667H5.33341V24Z" />
+              </svg>
+            </a>
+
+            <!-- 4. Instagram / Cámara -->
+            <a href="#" class="boton-red red-amarilla" aria-label="Instagram">
+              <svg viewBox="0 0 41 33" class="icono-red" fill="currentColor">
+                <path
+                  d="M26.7909 6.53702V9.80553H30.0467V6.53702H26.7909ZM17.0234 22.8796H23.535V19.6111H17.0234V22.8796ZM13.7675 19.6111H17.0234V13.074H13.7675V19.6111ZM23.535 19.6111H26.7909V13.074H23.535V19.6111ZM17.0234 13.074H23.535V9.80553H17.0234V13.074ZM36.5584 6.53702V26.1481H33.3026V29.4166H30.0467V32.6851H10.5117V29.4166H7.25584V26.1481H4V6.53702H7.25584V3.26851H10.5117V0H30.0467V3.26851H33.3026V6.53702H36.5584Z" />
+              </svg>
+            </a>
+
+            <!-- 5. Facebook -->
+            <a href="#" class="boton-red red-teal" aria-label="Facebook">
+              <svg viewBox="0 0 21 37" class="icono-red" fill="currentColor">
+                <path
+                  d="M19.5361 0.5V6.78613H12.25V15.0723H19.5361V21.3584H12.25V35.9297H5.96484V21.3584H0.5V15.0723H5.96484V4.14258H9.60742V0.5H19.5361Z" />
+              </svg>
+            </a>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- VENTANA MODAL INSTRUCCIONES -->
+      <div class="modal-overlay oculto" id="modal-instrucciones">
+        <div class="modal-tarjeta-instrucciones">
+          <h2 class="modal-instrucciones-titulo">¿CÓMO SE JUEGA?</h2>
+
+          <div class="modal-instrucciones-texto">
+            <p>Elimina todas las burbujas posibles hasta dejar una sola en el tablero.</p>
+            <p>Para hacerlo, seleccioná una burbuja que tenga otra inmediatamente al lado y un espacio vacío detrás.</p>
+            <p>La primera burbuja salta sobre la segunda y ocupa el espacio vacío, eliminando la burbuja que fue
+              saltada.</p>
+          </div>
+
+          <!-- Botón Cerrar (Cruz abajo centrada como en Figma) -->
+          <button class="boton-cerrar-inferior" id="btn-cerrar-instrucciones" aria-label="Cerrar instrucciones">
+            <svg viewBox="0 0 24 24" class="icono-cerrar">
+              <path
+                d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+    </main>
+    <!-- PIE DE PÁGINA -->
+    <footer>
+      <div class="footer-superior">
+
+        <div class="logo-nombre-redes">
+          <img class="logo-imagen-footer" src="img/Duckling_games.png" alt="Duckade Logo">
+          <h3 class="logo-footer-fuente">Duckade</h3>
+
+          <div class="iconos-redes-sociales">
+            <div class="icono-facebook">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17 6h-4v4h4v4h-4v8H9v-8H6v-4h3V4h2V2h6v4Z" />
+              </svg>
+            </div>
+
+            <div class="icono-youtube">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M20 6h2v12h-2v2H4v-2H2V6h2V4h16v2ZM8 17h4v-2h3v-2h2v-2h-2V9h-3V7H8v10Z" />
+              </svg>
+            </div>
+
+            <div class="icono-x">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M6 20H4v-2h2v2ZM8 6h2v2h2v2h2v2h2v2h2v2h2v2h2v2h-6v-2h-2v-2h-2v-2h-2v-2H8v-2H6V8H4V6H2V4h6v2Zm0 12H6v-2h2v2Zm2-2H8v-2h2v2Zm6-6h-2V8h2v2Zm2-2h-2V6h2v2Zm2-2h-2V4h2v2Z" />
+              </svg>
+            </div>
+
+            <div class="icono-instagram">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M16 6v2h2V6h-2Zm-6 10h4v-2h-4v2Zm-2-2h2v-4H8v4Zm6 0h2v-4h-2v4Zm-4-4h4V8h-4v2Zm12-4v12h-2v2h-2v2H6v-2H4v-2H2V6h2V4h2V2h12v2h2v2h2Z" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="links-fat-footer">
+          <div class="footer-columna">
+            <h4>Duckade</h4>
+            <ul>
+              <li><a href="">Acerda de Duckade</a></li>
+              <li><a href="">Acuerdo de subscriptor a Duckade</a></li>
+              <li><a href="">Trabajá con nosotros</a></li>
+              <li><a href="">Términos y condiciones</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-columna">
+            <h4>Soporte</h4>
+            <ul>
+              <li><a href="">Centro de ayuda</a></li>
+              <li><a href="">Preguntas frecuentes</a></li>
+              <li><a href="">Contacto</a></li>
+              <li><a href="">Condiciones de uso</a></li>
+              <li><a href="">Reembolsos y devoluciones</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-columna">
+            <h4>Información legal</h4>
+            <ul>
+              <li><a href="">Politica de privacidad</a></li>
+              <li><a href="">Accesibilidad</a></li>
+              <li><a href="">Avisos y políticas</a></li>
+              <li><a href="">Cookies y anuncios basados en intereses</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-columna">
+            <h4>Tienda</h4>
+            <ul>
+              <li><a href="">Novedades</a></li>
+              <li><a href="">Ofertas/Descuentos</a></li>
+              <li><a href="">Próximos lanzamientos</a></li>
+              <li><a href="">Juegos gratis</a></li>
+              <li><a href="">Tarjetas de regalo</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-columna">
+            <h4>Comunidad</h4>
+            <ul>
+              <li><a href="">Directrices de la comunidad</a></li>
+              <li><a href="">Foro</a></li>
+              <li><a href="">Reseñas de usuarios</a></li>
+              <li><a href="">Discord/Redes sociales</a></li>
+              <li><a href="">Novedades del sitio</a></li>
+              <li><a href="">Eventos</a></li>
+            </ul>
+          </div>
+
+          <div class="footer-columna">
+            <h4>Mi cuenta</h4>
+            <ul>
+              <li><a href="">Iniciar sesión</a></li>
+              <li><a href="">Mi biblioteca</a></li>
+              <li><a href="">Mi actividad</a></li>
+              <li><a href="">Lista de deseados</a></li>
+              <li><a href="">Historial de compra</a></li>
+              <li><a href="">Configuración</a></li>
+            </ul>
+          </div>
+
+        </div>
+
+        <div class="footer-newsletter">
+          <div class="newsletter-icono">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+              <path
+                d="M20 20H4v-2h16v2ZM4 18H2V6h2v12Zm18 0h-2V6h2v12Zm-8-4h-4v-2h4v2Zm-4-2H8v-2h2v2Zm6 0h-2v-2h2v2Zm-8-2H6V8h2v2Zm10 0h-2V8h2v2Zm2-4H4V4h16v2Z" />
+            </svg>
+          </div>
+
+          <div class="newsletter-container">
+            <h3 id="newsletter-fuente">Newsletter</h3>
+            <h4 class="newsletter-contenido-fuente">¡Subscribite para ser el primero en enterarte de las últimas
+              novedades!</h4>
+            <h5 class="newsletter-email-fuente">Dirección de email</h5>
+            <input type="email" placeholder="tunombre@gmail.com" class="email-container">
+
+            <button>SUBSCRIBE</button>
+          </div>
+
+        </div>
+
+      </div>
+      <div class="footer-inferior">
+        <p>Duckade. Los juegos son propiedad de sus respectivos dueños.</p>
+      </div>
+
+    </footer>
+    <script src="js/peg-solitaire.js"></script>
+  </body>
+
+  </htm>
