@@ -1545,8 +1545,9 @@ header, footer {
   position: relative;
   background-color: #009ea0;
   border-radius: 28px;
-  width: 420px;
+  width: 720px;          /* antes 420px */
   max-width: 90vw;
+  max-height: 85vh;      /* nunca más alta que la ventana */
   padding: 40px 28px 56px;
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5);
   display: flex;
@@ -1579,6 +1580,9 @@ header, footer {
   gap: 16px;
   padding: 3px;
   margin: 0 10px 0px 10px;
+  overflow-y: auto;
+  min-height: 0;         /* necesario para que se achique dentro del flex */
+  text-align: center;      /* opcional: se lee mejor que centrado */
 }
 
 /* Cruz centrada abajo */
