@@ -2,7 +2,7 @@
 // Punto de entrada del juego: carga las imágenes, crea el Controlador (que arma el Modelo y la Vista)
 // y conecta los botones de la página con la partida.
 import { Controlador } from './controlador/controlador.js';
-import { cargarImagenesFichas } from './vista/imagenesFichas.js';
+import { cargarImagenesFichas } from './vista/imagenesfichas.js';
 
 const canvas = document.getElementById('canvas-juego');
 
