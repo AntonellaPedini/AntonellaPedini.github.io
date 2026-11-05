@@ -94,14 +94,23 @@ export class Controlador {
   }
 
   /**
-   * Se llama cada vez que se mueve el mouse. Si hay arrastre, la ficha sigue al mouse.
+   * Se llama cada vez que se mueve el mouse. Si hay arrastre, la ficha sigue al mouse,
+   * pero sin salirse del tablero.
    * @param {MouseEvent} e
    */
   seguirArrastre(e) {
     if (!this.arrastre) return;
     const pos = this.posicionEnCanvas(e);
-    this.arrastre.x = pos.x - this.arrastre.dx;
-    this.arrastre.y = pos.y - this.arrastre.dy;
+    const x = pos.x - this.arrastre.dx;   // dónde quedaría el centro de la ficha
+    const y = pos.y - this.arrastre.dy;
+
+    // La ficha NO puede salir del tablero: solo se mueve si su centro quedaría sobre una celda
+    // del tablero. Si el mouse se va afuera, la ficha se queda en el último lugar válido.
+    const { fila, col } = this.vista.pixelesACelda(x, y);
+    if (!this.tablero.esCeldaValida(fila, col)) return;
+
+    this.arrastre.x = x;
+    this.arrastre.y = y;
   }
 
   /**
