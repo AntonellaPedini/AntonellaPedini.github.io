@@ -95,19 +95,21 @@ export class Controlador {
 
   /**
    * Se llama cada vez que se mueve el mouse. Si hay arrastre, la ficha sigue al mouse,
-   * pero sin salirse del tablero.
+   * pero sin salirse del rectángulo permitido.
    * @param {MouseEvent} e
    */
   seguirArrastre(e) {
     if (!this.arrastre) return;
     const pos = this.posicionEnCanvas(e);
-    const x = pos.x - this.arrastre.dx;   // dónde quedaría el centro de la ficha
-    const y = pos.y - this.arrastre.dy;
+    let x = pos.x - this.arrastre.dx;   // dónde quedaría el centro de la ficha
+    let y = pos.y - this.arrastre.dy;
 
-    // La ficha NO puede salir del tablero: solo se mueve si su centro quedaría sobre una celda
-    // del tablero. Si el mouse se va afuera, la ficha se queda en el último lugar válido.
-    const { fila, col } = this.vista.pixelesACelda(x, y);
-    if (!this.tablero.esCeldaValida(fila, col)) return;
+    // La ficha NO puede salir de un rectángulo alrededor del tablero (lo pide la Vista, que conoce
+    // las medidas). Math.max y Math.min "recortan" el número: si x es menor que el mínimo vale el mínimo,
+    // y si es mayor que el máximo vale el máximo. Así la ficha se frena en el borde del rectángulo.
+    const limites = this.vista.limitesArrastre();
+    x = Math.max(limites.minX, Math.min(limites.maxX, x));
+    y = Math.max(limites.minY, Math.min(limites.maxY, y));
 
     this.arrastre.x = x;
     this.arrastre.y = y;

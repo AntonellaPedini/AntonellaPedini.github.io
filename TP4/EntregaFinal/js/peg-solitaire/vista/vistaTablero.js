@@ -58,6 +58,22 @@ export class VistaTablero {
   }
 
   /**
+   * Devuelve el rectángulo por donde se puede arrastrar el CENTRO de una ficha: el tablero
+   * más un margen alrededor (más o menos el tamaño de la estrella del fondo).
+   * Así la ficha se puede mover con libertad, pero no se va al resto del canvas.
+   * @returns {{minX: number, maxX: number, minY: number, maxY: number}} límites en píxeles del canvas
+   */
+  limitesArrastre() {
+    const margen = 100;   // píxeles de aire alrededor del tablero
+    return {
+      minX: this.offsetX - margen,
+      maxX: this.offsetX + this.tablero.columnas * this.tamCelda + margen,
+      minY: this.offsetY - margen,
+      maxY: this.offsetY + this.tablero.filas * this.tamCelda + margen,
+    };
+  }
+
+  /**
    * Dibuja un cuadro completo. Se llama cada vez que hay que refrescar la pantalla.
    * El orden importa: lo que se dibuja después queda arriba de lo anterior.
    * @param {Object} estado - lo que cambia durante el juego:
