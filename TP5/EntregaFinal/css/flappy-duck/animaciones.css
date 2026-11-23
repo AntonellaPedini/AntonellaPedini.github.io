@@ -1,0 +1,441 @@
+html, body {
+    margin: 0;
+    background-color: #000;
+}
+
+/* Velocidad del mundo, en "pantallas por segundo" */
+.pantalla-televisor { --vel: 0.2083; }
+
+.pantalla-televisor.pausado .layer {
+    animation-play-state: paused;
+}
+
+/* ---------- Capas ----------
+--k : ancho de un tile, en anchos de pantalla
+--h : alto de la capa, como fracción del alto de la pantalla
+--f : fracción de la velocidad del mundo (lejos = lento) */
+.layer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: calc(var(--k) * 200%);
+    height: calc(var(--h) * 100%);
+    background-repeat: repeat-x;
+    background-size: 50% 100%;
+    animation: mover calc(var(--k) / (var(--vel) * var(--f)) * 1s) linear infinite;
+}
+
+@keyframes mover {
+    to { transform: translateX(-50%); }
+}
+
+.layer-cielo {
+    --k: 3.533; --h: 1;     --f: 0.04;
+    background-image: url("../../img/flappy-duck-img/fondo/6.png");
+}
+.layer-piedras-lejanas {
+    --k: 1.736; --h: 0.543; --f: 0.11;
+    background-image: url("../../img/flappy-duck-img/fondo/5.png");
+}
+.layer-elevaciones {
+    --k: 1.736; --h: 0.738; --f: 0.22;
+    background-image: url("../../img/flappy-duck-img/fondo/4.png");
+}
+.layer-arbol {
+    --k: 1.736; --h: 0.983; --f: 0.36;
+    background-image: url("../../img/flappy-duck-img/fondo/3.png");
+}
+.layer-piedra {
+    --k: 1.736; --h: 0.533; --f: 0.60;
+    background-image: url("../../img/flappy-duck-img/fondo/2.png");
+}
+.layer-camino {
+    --k: 1.736; --h: 0.583; --f: 1;
+    background-image: url("../../img/flappy-duck-img/fondo/1.png");
+}
+.layer-pasto {
+    --k: 1.736; --h: 0.222; --f: 1.55;
+    background-image: url("../../img/flappy-duck-img/fondo/0.png");
+}
+
+/* ---------- Pato ---------- */
+.duck-flying {
+    position: absolute;
+    left: 15%;
+    top: 0;
+    width: 9%;                    /* ancho como % de la pantalla */
+    aspect-ratio: 257 / 275;      /* mantiene la proporción de un frame */
+    background: url("../../img/flappy-duck-img/spritesheets_pato/pato_volando.png") no-repeat;
+    background-size: 800% 100%;   /* la hoja mide 8 veces el ancho del pato */
+    animation: flying .8s steps(8) infinite;
+}
+
+@keyframes flying {
+    from { background-position: 0 0; }
+    to   { background-position: calc(100% * 8 / 7) 0; }
+}
+
+.hud {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    color: #fff;
+}
+
+.obstaculos,
+.elementos {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+.obstaculo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: calc(180 / 1152 * 100%); /* ancho del obstáculo como % de la pantalla */
+}
+
+.tronco {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    background: url("../../img/flappy-duck-img/elementos/tronco.png") no-repeat;
+    background-size: 100% auto;
+}
+
+.tronco.arriba {
+    top: 0;
+    background-position: center bottom;
+}
+
+.tronco.abajo {
+    bottom: 0;
+    background-position: center top;
+}
+
+/* Aleteo rápido cuando el jugador da impulso */
+.duck-flying.aleteo {
+    animation-duration: .40s;
+}
+
+/* Pato acelerando: mientras sube tras un impulso */
+.duck-flying.acelerando {
+    background-image: url("../../img/flappy-duck-img/spritesheets_pato/pato_speeding.png");
+    animation: dash .45s steps(8) infinite;
+}
+
+@keyframes dash {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: calc(100% * 8 / 7) 0;
+    }
+}
+
+/* Animación al chocar y parpadeo de invulnerabilidad */
+.duck-flying.estrellado {
+    background-image: url("../../img/flappy-duck-img/spritesheets_pato/pato_estrellado.png");
+    animation: crashed 1s steps(8) infinite;
+}
+
+.duck-flying.parpadeo {
+    animation: flying .8s steps(8) infinite, parpadeo .25s linear infinite;
+}
+
+.duck-flying.estrellado.parpadeo {
+    animation: crashed 1s steps(8) infinite, parpadeo .25s linear infinite;
+}
+
+@keyframes crashed {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: calc(100% * 8 / 7) 0;
+    }
+}
+
+@keyframes parpadeo {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: .25;
+    }
+}
+
+/* Vidas: el primer frame de la hoja de corazones, al doble de tamaño */
+.vidas {
+    display: flex;
+    gap: 6px;
+}
+
+.corazon {
+    width: 32px;
+    height: 32px;
+    background: url("../../img/flappy-duck-img/elementos/corazones.png") 0 0 / 416px 32px no-repeat;
+    image-rendering: pixelated;
+}
+
+.corazon.perdido {
+    filter: grayscale(1) opacity(.35);
+}
+
+/* Elementos que se mueven por la pantalla */
+.elemento {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background-repeat: no-repeat;
+    image-rendering: pixelated;
+}
+
+.item-moneda {
+    width: calc(48 / 1152 * 100%);
+    aspect-ratio: 1;
+    background-image: url("../../img/flappy-duck-img/elementos/monedas_oro.png");
+    background-size: 1000% 100%;
+    /* la hoja son 10 frames */
+    animation: girar .8s steps(10) infinite;
+}
+
+@keyframes girar {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: calc(100% * 10 / 9) 0;
+    }
+}
+
+/* Moneda del HUD (el icono al lado del puntaje) */
+.score-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 22px;
+    text-shadow: 0 2px 0 rgba(0, 0, 0, .5);
+}
+
+.score-box .moneda {
+    width: 24px;
+    height: 24px;
+    background: url("../../img/flappy-duck-img/elementos/monedas_oro.png") 0 0 / 240px 24px no-repeat;
+    image-rendering: pixelated;
+}
+
+/* Pájaros enemigos: 6 frames de 32px, mostrados al triple (96) */
+.item-pajaro {
+    width: calc(96 / 1152 * 100%);
+    aspect-ratio: 1;
+    background-size: 600% 100%;
+    animation: volar .5s steps(6) infinite;
+}
+
+.item-pajaro.v1 {
+    background-image: url("../../img/flappy-duck-img/elementos/pajaro1.png");
+}
+
+.item-pajaro.v2 {
+    background-image: url("../../img/flappy-duck-img/elementos/pajaro2.png");
+}
+
+@keyframes volar {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: calc(100% * 6 / 5) 0;
+    }
+}
+
+/* Reloj de arena: 8 frames de 16px, mostrados al triple (48) */
+.item-reloj {
+    width: calc(48 / 1152 * 100%);
+    aspect-ratio: 1;
+    background-image: url("../../img/flappy-duck-img/elementos/reloj.png");
+    background-size: 800% 100%;
+    animation: arena 1s steps(8) infinite;
+}
+
+@keyframes arena {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: calc(100% * 8 / 7) 0;
+    }
+}
+
+/* Corazón coleccionable: 13 frames de 16px mostrados al triple (48) */
+.item-corazon {
+    width: calc(48 / 1152 * 100%);
+    aspect-ratio: 1;
+    background-image: url("../../img/flappy-duck-img/elementos/corazones.png");
+    background-size: 1300% 100%;
+    animation: latir 1s steps(13) infinite;
+}
+
+@keyframes latir {
+    from {
+        background-position: 0 0;
+    }
+
+    to {
+        background-position: calc(100% * 13 / 12) 0;
+    }
+}
+
+/* Cronómetro del HUD */
+.crono {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 22px;
+    text-shadow: 0 2px 0 rgba(0, 0, 0, .5);
+}
+
+.crono-max {
+    opacity: .7;
+    font-size: 16px;
+}
+
+.reloj-arena {
+    width: 24px;
+    height: 24px;
+    background: url("../../img/flappy-duck-img/elementos/reloj.png") 0 0 / 192px 24px no-repeat;
+    image-rendering: pixelated;
+}
+
+#tiempo {
+    display: inline-block;
+}
+
+#tiempo.sumo {
+    animation: destello-rojo .7s ease-out;
+}
+
+#tiempo.resto {
+    animation: destello-verde .7s ease-out;
+}
+
+@keyframes destello-rojo {
+    0% {
+        color: #ff5a5a;
+        transform: scale(1.35);
+    }
+
+    100% {
+        color: inherit;
+        transform: scale(1);
+    }
+}
+
+@keyframes destello-verde {
+    0% {
+        color: #6dff8a;
+        transform: scale(1.35);
+    }
+
+    100% {
+        color: inherit;
+        transform: scale(1);
+    }
+}
+
+.turbo-info {
+    font-weight: 700;
+    font-size: 18px;
+    text-shadow: 0 2px 0 rgba(0, 0, 0, .5);
+    opacity: .85;
+}
+
+.turbo-info.activo {
+    color: #ffd84a;
+    opacity: 1;
+}
+
+/* Pantalla de fin */
+.pantalla-fin {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(4, 52, 65, .72);
+    backdrop-filter: blur(3px);
+    animation: fadeInModal .3s ease;
+}
+
+.pantalla-fin.oculta {
+    display: none;
+}
+
+.fin-tarjeta {
+  background: #ffd899;
+  border: 3px solid var(--color-negro);
+  border-radius: 24px;
+  box-shadow: 6px 6px 0 var(--color-negro);
+  padding: 3% 6%;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  text-align: center;
+  animation: popModal .3s cubic-bezier(.175, .885, .32, 1.275);
+}
+
+.fin-tarjeta h2 {
+  font-family: 'Silkscreen', monospace;
+  font-size: clamp(18px, 2.6vw, 34px);
+  color: var(--color-titulos);
+}
+
+.fin-stats {
+  display: flex;
+  gap: 34px;
+  justify-content: center;
+  color: var(--color-titulos);
+}
+
+.fin-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-family: 'DotGothic16', monospace;
+}
+
+.fin-stat strong {
+  font-family: 'Press Start 2P', monospace;
+  font-size: clamp(16px, 2vw, 26px);
+  line-height: 1.3;
+  letter-spacing: 1px;
+}
+
+.fin-botones {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+}
+
+.fin-botones .boton-arcade {
+  height: 48px;
+  font-size: 12px;
+  padding: 0 18px;
+}
